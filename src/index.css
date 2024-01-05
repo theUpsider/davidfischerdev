@@ -28,3 +28,14 @@ html, body {
   overflow: hidden;  /*  Optional: if you want to disable scroll */
   font-family: monospace;
 }
+
+@keyframes stretch {
+  0% {
+    width: 0;
+    transform: translateX(-50%);
+  }
+  100% {
+    width: 1000px;
+    transform: translateX(-50%);
+  }
+}

@@ -53,9 +53,16 @@ const VerticalSettings = () => {
 const VertialMenu = () => {
   const { theme } = useTheme()
   const [barPosition, setBarPosition] = React.useState(0)
+  const [barLeft, setBarLeft] = React.useState(0)
+  const [hoveredIndex, setHoveredIndex] = React.useState(0)
 
   // An array of items you want to be hoverable (can be dynamic)
-  const items = ['HOME', 'PROJECTS', 'RESEARCH', 'ART', 'CONTACT']
+  const items = [
+    ['HOME', 'PORTFOLIO - CURRICULUM VITAE - SKILLS'],
+    ['PROJECTS', 'GITHUB - WORKS - DEMOS - STUDIES'],
+    ['CONTACT', 'LINKEDIN - EMAIL - PHONE - ADDRESS'],
+    ['ABOUT', 'WHO AM I? - WHAT DO I DO? - WHAT DO I WANT?']
+  ]
 
   // Create an array of refs
   const refs = React.useRef(items.map(() => React.createRef<HTMLDivElement>()))
@@ -65,6 +72,8 @@ const VertialMenu = () => {
     if (refs.current[index].current) {
       const rect = (refs.current[index].current as HTMLElement).getBoundingClientRect()
       setBarPosition(rect.top + window.scrollY) // Update the position of the bar
+      setBarLeft(rect.left + rect.width)
+      setHoveredIndex(index)
     }
   }
   return (
@@ -78,10 +87,9 @@ const VertialMenu = () => {
       }}>
       {items.map((item, index) => (
         <div
-          key={item}
+          key={item[0]}
           ref={refs.current[index]} // Attach the ref
           onMouseEnter={() => handleHover(index)} // Handle hover
-          style={{ height: '50px', marginTop: '10px' }} // Give some height for demonstration
         >
           <Link
             style={{
@@ -89,11 +97,45 @@ const VertialMenu = () => {
               fontWeight: 'bold',
               color: theme.palette.text.primary
             }}
-            to={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}>
-            <h1>{item}</h1>
+            to={`/${item[0].toLowerCase() === 'home' ? '' : item[0].toLowerCase()}`}>
+            <h1>{item[0]}</h1>
           </Link>
         </div>
       ))}
+      <div>
+        <p
+          style={{
+            fontWeight: 'bold'
+          }}>
+          © David Fischer 2024
+        </p>
+      </div>
+      <div
+        style={{
+          transformOrigin: 'left',
+          rotate: '-90deg',
+          position: 'absolute',
+          top: barPosition - 45,
+          width: 'max-content',
+          left: barLeft + 25,
+          transition: 'top 0.5s ease'
+        }}>
+        <h2
+          style={{
+            fontWeight: 'bold'
+          }}>
+          {items[hoveredIndex][1]}
+        </h2>
+        <div
+          key={Math.random()}
+          style={{
+            borderTop: '1px solid ' + theme.palette.text.primary,
+            animation: `stretch 3s`,
+            height: 2,
+            animationFillMode: 'forwards'
+          }}
+        />
+      </div>
       <HorizontalCursorBar barPosition={barPosition} />
     </div>
   )
@@ -147,7 +189,7 @@ const App = () => {
             marginRight: 30,
             borderLeft: `1px solid ${theme.palette.foreground.primary}`,
             borderRight: `1px solid ${theme.palette.foreground.primary}`,
-            padding: 30
+            padding: 60
           }}>
           <Outlet />
         </div>

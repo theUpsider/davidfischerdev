@@ -1,10 +1,12 @@
 import * as React from 'react'
+import { useTheme } from './ThemeProvider'
 
 export const HorizontalCursorBar = ({ barPosition }: { barPosition?: number }) => {
+  const { theme } = useTheme()
   return (
     <div
       style={{
-        border: '1px solid black',
+        borderTop: '1px solid ' + theme.palette.text.primary,
         width: '100%',
         height: 1,
         position: 'absolute',
