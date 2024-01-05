@@ -5,7 +5,7 @@ export const HorizontalCursorBar = ({ barPosition }: { barPosition?: number }) =
     <div
       style={{
         border: '1px solid black',
-        width: 'inherit',
+        width: '100%',
         height: 1,
         position: 'absolute',
         top: barPosition,

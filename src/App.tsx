@@ -4,6 +4,7 @@ import { darkTheme, lightTheme } from './styles'
 import Button from './components/Button'
 import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom'
 import { HorizontalCursorBar } from './components/HorizontalCursorBar'
+import ErrorPage from './pages/ErrorPage'
 
 const initialTheme = darkTheme
 
@@ -50,6 +51,7 @@ const VerticalSettings = () => {
  * @returns
  */
 const VertialMenu = () => {
+  const { theme } = useTheme()
   const [barPosition, setBarPosition] = React.useState(0)
 
   // An array of items you want to be hoverable (can be dynamic)
@@ -84,9 +86,10 @@ const VertialMenu = () => {
           <Link
             style={{
               textDecoration: 'none',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              color: theme.palette.text.primary
             }}
-            to={`/${item.toLowerCase()}`}>
+            to={`/${item.toLowerCase() === 'home' ? '' : item.toLowerCase()}`}>
             <h1>{item}</h1>
           </Link>
         </div>
@@ -96,7 +99,7 @@ const VertialMenu = () => {
   )
 }
 
-const App = ({ children }: { children?: React.ReactNode }) => {
+const App = () => {
   const { theme, setTheme } = useTheme()
 
   // get theme from local storage
@@ -157,6 +160,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'projects',
