@@ -1,0 +1,14 @@
+node_modules
+dist
+bin
+.vscode
+.github
+webpack.config.js
+webpack.config.prod.js
+tsconfig.json
+jest.config.js
+auto-order-json-translations.js
+*.test.*
+*.config.*
+RingBuffer.ts
+index.html

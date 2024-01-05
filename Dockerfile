@@ -3,7 +3,7 @@ FROM node:16.20.0-alpine AS build
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
-COPY package-lock.lock ./
+COPY package-lock.json ./
 RUN npm install
 COPY . ./
 ARG NODE_ENV=production

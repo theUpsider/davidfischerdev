@@ -1,5 +1,6 @@
 # Material UI - Vite.js in TypeScript example
-
+## Notes
+docker build . -t davidfischerdev
 ## How to use
 
 Download the example [or clone the repo](https://github.com/mui/material-ui):
