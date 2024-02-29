@@ -5,8 +5,10 @@ import Button from './components/Button'
 import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom'
 import { HorizontalCursorBar } from './components/HorizontalCursorBar'
 import ErrorPage from './pages/ErrorPage'
+import Imprint from './pages/Imprint'
+import Home from './pages/Home'
 
-const initialTheme = darkTheme
+const initialTheme = lightTheme
 
 const mainPadding = 'max(3%, 30px)'
 
@@ -50,7 +52,7 @@ const VerticalSettings = () => {
  * space evenly in vertical space
  * @returns
  */
-const VertialMenu = () => {
+const VertialMenu = ({ barpositionCallback }: { barpositionCallback: (barPosition: number) => void }) => {
   const { theme } = useTheme()
   const [barPosition, setBarPosition] = React.useState(0)
   const [barLeft, setBarLeft] = React.useState(0)
@@ -58,10 +60,11 @@ const VertialMenu = () => {
 
   // An array of items you want to be hoverable (can be dynamic)
   const items = [
-    ['HOME', 'PORTFOLIO - CURRICULUM VITAE - SKILLS'],
-    ['PROJECTS', 'GITHUB - WORKS - DEMOS - STUDIES'],
     ['CONTACT', 'LINKEDIN - EMAIL - PHONE - ADDRESS'],
-    ['ABOUT', 'WHO AM I? - WHAT DO I DO? - WHAT DO I WANT?']
+    ['IMPRINT', 'LEGAL NOTICE - PRIVACY POLICY - TERMS OF SERVICE'],
+    ['ABOUT', 'WHO AM I? - WHAT DO I DO? - WHAT DO I WANT?'],
+    ['PROJECTS', 'GITHUB - WORKS - DEMOS - STUDIES'],
+    ['HOME', 'PORTFOLIO - CURRICULUM VITAE - SKILLS']
   ]
 
   // Create an array of refs
@@ -72,16 +75,22 @@ const VertialMenu = () => {
     if (refs.current[index].current) {
       const rect = (refs.current[index].current as HTMLElement).getBoundingClientRect()
       setBarPosition(rect.top + window.scrollY) // Update the position of the bar
+      barpositionCallback(rect.top + window.scrollY)
       setBarLeft(rect.left + rect.width)
       setHoveredIndex(index)
     }
   }
+
+  React.useEffect(() => {
+    handleHover(4) // Set the initial position of the bar
+  }, [])
+
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-end',
         height: '100%',
         width: '100%'
       }}>
@@ -115,26 +124,35 @@ const VertialMenu = () => {
           transformOrigin: 'left',
           rotate: '-90deg',
           position: 'absolute',
-          top: barPosition - 45,
+          top: barPosition - 29,
           width: 'max-content',
-          left: barLeft + 25,
+          left: barLeft + 29 + 30,
           transition: 'top 0.5s ease'
         }}>
         <h2
           style={{
-            fontWeight: 'bold'
+            fontWeight: 'bold',
+            paddingLeft: 10
           }}>
           {items[hoveredIndex][1]}
         </h2>
         <div
-          key={Math.random()}
+          // This is used so that the bar has a width based on its position. The animation in the bar sets it to 100% width so it will stretch to the top.
           style={{
-            borderTop: '1px solid ' + theme.palette.text.primary,
-            animation: `stretch 3s`,
-            height: 2,
-            animationFillMode: 'forwards'
-          }}
-        />
+            width: barPosition
+          }}>
+          <div
+            // Stretching floating bar
+            key={Math.random()}
+            style={{
+              borderTop: '1px solid ' + theme.palette.text.primary,
+              animation: `stretch 3s`,
+              height: 2,
+              animationFillMode: 'forwards',
+              animationTimingFunction: 'cubic-bezier(0.39, 0.58, 0, 1.04)'
+            }}
+          />
+        </div>
       </div>
       <HorizontalCursorBar barPosition={barPosition} />
     </div>
@@ -143,6 +161,7 @@ const VertialMenu = () => {
 
 const App = () => {
   const { theme, setTheme } = useTheme()
+  const [barPosition, setBarPosition] = React.useState(0)
 
   // get theme from local storage
   if (localStorage.getItem('theme') === 'light') {
@@ -167,12 +186,13 @@ const App = () => {
           height: '100vh',
           borderLeft: `1px solid ${theme.palette.foreground.primary}`,
           borderRight: `1px solid ${theme.palette.foreground.primary}`,
-          padding: 30
+          paddingLeft: 30
         }}>
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            paddingRight: 30
           }}>
           <h1>DAVID FISCHER 2024</h1>
           <h3>Software Engineer</h3>
@@ -181,17 +201,27 @@ const App = () => {
           <h3>Check my linkedin:</h3>
           <a href="https://www.linkedin.com/in/david-fischer-824566155/">LinkedIn</a>
 
-          <VertialMenu />
+          <VertialMenu
+            barpositionCallback={(barPosition: number) => {
+              setBarPosition(barPosition)
+            }}
+          />
         </div>
         <div
+          // Actual content right side field
           style={{
-            flexGrow: 1,
-            marginRight: 30,
             borderLeft: `1px solid ${theme.palette.foreground.primary}`,
-            borderRight: `1px solid ${theme.palette.foreground.primary}`,
-            padding: 60
+            paddingLeft: 57,
+            minWidth: '100%'
           }}>
-          <Outlet />
+          <div
+            // Bar position separates upper and lower content
+            style={{
+              height: barPosition,
+              transition: 'all 0.5s ease'
+            }}>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
@@ -205,15 +235,51 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: 'projects',
+        path: '',
+        element: <Home />
+      },
+      {
+        path: 'about',
         element: (
           <div
             style={{
               transition: 'all 0.5s ease'
             }}>
+            <h1>About</h1>
+          </div>
+        )
+      },
+      {
+        path: 'contact',
+        element: (
+          <div
+            style={{
+              transition: 'all 0.5s ease'
+            }}>
+            <h1>Contact</h1>
+          </div>
+        )
+      },
+      {
+        path: 'projects',
+        element: (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              transition: 'all 0.5s ease'
+            }}>
             <h1>Projects</h1>
           </div>
         )
+      },
+      {
+        path: 'imprint',
+        element: <Imprint />
+      },
+      {
+        path: '*',
+        element: <ErrorPage />
       }
     ]
   }
