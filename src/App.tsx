@@ -7,6 +7,7 @@ import { HorizontalCursorBar } from './components/HorizontalCursorBar'
 import ErrorPage from './pages/ErrorPage'
 import Imprint from './pages/Imprint'
 import Home from './pages/Home'
+import Projects from './pages/Projects'
 
 const initialTheme = lightTheme
 
@@ -42,7 +43,7 @@ const VerticalSettings = () => {
           }}>
           SETTINGS
         </p>
-        <Button onClick={() => toggleTheme()}>Toggle Theme</Button>
+        <Button onClick={() => toggleTheme()}>{isDark ? 'LIGHT MODE' : 'DARK MODE'}</Button>
       </div>
     </div>
   )
@@ -60,6 +61,7 @@ const VertialMenu = ({ barpositionCallback }: { barpositionCallback: (barPositio
 
   // An array of items you want to be hoverable (can be dynamic)
   const items = [
+    ['MEDIA', 'INSTAGRAM - TWITTER - FACEBOOK - YOUTUBE'],
     ['CONTACT', 'LINKEDIN - EMAIL - PHONE - ADDRESS'],
     ['IMPRINT', 'LEGAL NOTICE - PRIVACY POLICY - TERMS OF SERVICE'],
     ['ABOUT', 'WHO AM I? - WHAT DO I DO? - WHAT DO I WANT?'],
@@ -88,73 +90,93 @@ const VertialMenu = ({ barpositionCallback }: { barpositionCallback: (barPositio
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        height: '100%',
-        width: '100%'
+        flex: 1
       }}>
-      {items.map((item, index) => (
-        <div
-          key={item[0]}
-          ref={refs.current[index]} // Attach the ref
-          onMouseEnter={() => handleHover(index)} // Handle hover
-        >
-          <Link
-            style={{
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              color: theme.palette.text.primary
-            }}
-            to={`/${item[0].toLowerCase() === 'home' ? '' : item[0].toLowerCase()}`}>
-            <h1>{item[0]}</h1>
-          </Link>
-        </div>
-      ))}
-      <div>
-        <p
+      <div
+        key={'media'}
+        ref={refs.current[0]} // Attach the ref
+        onMouseEnter={() => handleHover(0)} // Handle hover
+      >
+        <Link
           style={{
-            fontWeight: 'bold'
-          }}>
-          © David Fischer 2024
-        </p>
+            textDecoration: 'none',
+            fontWeight: 'bold',
+            color: theme.palette.text.primary
+          }}
+          to={`/${items[0][0].toLowerCase() === 'home' ? '' : items[0][0].toLowerCase()}`}>
+          <h1>{items[0][0]}</h1>
+        </Link>
       </div>
       <div
         style={{
-          transformOrigin: 'left',
-          rotate: '-90deg',
-          position: 'absolute',
-          top: barPosition - 29,
-          width: 'max-content',
-          left: barLeft + 29 + 30,
-          transition: 'top 0.5s ease'
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          height: '100%',
+          width: '100%'
         }}>
-        <h2
-          style={{
-            fontWeight: 'bold',
-            paddingLeft: 10
-          }}>
-          {items[hoveredIndex][1]}
-        </h2>
-        <div
-          // This is used so that the bar has a width based on its position. The animation in the bar sets it to 100% width so it will stretch to the top.
-          style={{
-            width: barPosition
-          }}>
+        {items.slice(1).map((item, index) => (
           <div
-            // Stretching floating bar
-            key={Math.random()}
+            key={item[0]}
+            ref={refs.current[index + 1]} // Attach the ref
+            onMouseEnter={() => handleHover(index + 1)} // Handle hover
+          >
+            <Link
+              style={{
+                textDecoration: 'none',
+                fontWeight: 'bold',
+                color: theme.palette.text.primary
+              }}
+              to={`/${item[0].toLowerCase() === 'home' ? '' : item[0].toLowerCase()}`}>
+              <h1>{item[0]}</h1>
+            </Link>
+          </div>
+        ))}
+        <div>
+          <p
             style={{
-              borderTop: '1px solid ' + theme.palette.text.primary,
-              animation: `stretch 3s`,
-              height: 2,
-              animationFillMode: 'forwards',
-              animationTimingFunction: 'cubic-bezier(0.39, 0.58, 0, 1.04)'
-            }}
-          />
+              fontWeight: 'bold'
+            }}>
+            © David Fischer 2024
+          </p>
         </div>
+        <div
+          style={{
+            transformOrigin: 'left',
+            rotate: '-90deg',
+            position: 'absolute',
+            top: barPosition - 29,
+            width: 'max-content',
+            left: barLeft + 29 + 30,
+            transition: 'top 0.5s ease'
+          }}>
+          <h2
+            style={{
+              fontWeight: 'bold',
+              paddingLeft: 10
+            }}>
+            {items[hoveredIndex][1]}
+          </h2>
+          <div
+            // This is used so that the bar has a width based on its position. The animation in the bar sets it to 100% width so it will stretch to the top.
+            style={{
+              width: barPosition
+            }}>
+            <div
+              // Stretching floating bar
+              key={Math.random()}
+              style={{
+                borderTop: '1px solid ' + theme.palette.text.primary,
+                animation: `stretch 3s`,
+                height: 2,
+                animationFillMode: 'forwards',
+                animationTimingFunction: 'cubic-bezier(0.39, 0.58, 0, 1.04)'
+              }}
+            />
+          </div>
+        </div>
+        <HorizontalCursorBar barPosition={barPosition} />
       </div>
-      <HorizontalCursorBar barPosition={barPosition} />
     </div>
   )
 }
@@ -200,7 +222,6 @@ const App = () => {
           <h3>Website Under Construction</h3>
           <h3>Check my linkedin:</h3>
           <a href="https://www.linkedin.com/in/david-fischer-824566155/">LinkedIn</a>
-
           <VertialMenu
             barpositionCallback={(barPosition: number) => {
               setBarPosition(barPosition)
@@ -211,7 +232,7 @@ const App = () => {
           // Actual content right side field
           style={{
             borderLeft: `1px solid ${theme.palette.foreground.primary}`,
-            paddingLeft: 57,
+            paddingLeft: 55,
             minWidth: '100%'
           }}>
           <div
@@ -262,16 +283,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'projects',
-        element: (
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              transition: 'all 0.5s ease'
-            }}>
-            <h1>Projects</h1>
-          </div>
-        )
+        element: <Projects />
       },
       {
         path: 'imprint',

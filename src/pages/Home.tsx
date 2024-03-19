@@ -39,6 +39,12 @@ const Home = () => {
           style={{
             margin: 0
           }}>
+          DESIGNER //
+        </p>
+        <p
+          style={{
+            margin: 0
+          }}>
           RESEARCHER //
         </p>
         <p
@@ -46,12 +52,6 @@ const Home = () => {
             margin: 0
           }}>
           CREATOR //
-        </p>
-        <p
-          style={{
-            margin: 0
-          }}>
-          DESIGNER //
         </p>
       </div>
       {/* <div
