@@ -8,6 +8,7 @@ import ErrorPage from './pages/ErrorPage'
 import Imprint from './pages/Imprint'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
+import MajorSystem from './pages/MajorSystem'
 
 const initialTheme = lightTheme
 
@@ -284,6 +285,11 @@ const router = createBrowserRouter([
       {
         path: 'projects',
         element: <Projects />
+      },
+      {
+        // Major System Generator
+        path: 'projects/major-system',
+        element: <MajorSystem />
       },
       {
         path: 'imprint',

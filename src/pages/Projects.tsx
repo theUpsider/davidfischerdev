@@ -19,8 +19,9 @@ const Projects = () => {
           style={{
             borderTop: '1px solid black'
           }}>
-          <h2>Project 1</h2>
-          <p>Project 1 description</p>
+          <h2>Major System Generator</h2>
+          <p>Generate mnemonics using the major system</p>
+          <a href="/projects/major-system">Try for yourself</a>
         </div>
         <div>
           <h2>Project 2</h2>
