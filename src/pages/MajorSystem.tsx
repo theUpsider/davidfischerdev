@@ -67,7 +67,7 @@ const Th = styled.th`
 const Td = styled.td`
   border: 1px solid;
   padding: 8px;
-  text-align: center;
+  text-align: start;
 `
 
 const App = () => {
