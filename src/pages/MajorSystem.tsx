@@ -17,6 +17,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 2rem;
+  overflow-y: auto;
 `
 
 const Card = styled.div`
@@ -25,6 +27,10 @@ const Card = styled.div`
   border: 1px solid;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+`
+
+const PaddedContent = styled.div`
+  padding: 2rem;
 `
 
 const Title = styled.h1`
@@ -158,6 +164,74 @@ const App = () => {
           </TableContainer>
         )}
       </Card>
+      <PaddedContent>
+        <h2>Remember Table German</h2>
+        <TableContainer>
+          <Table>
+            <thead>
+              <tr>
+                <Th>Number</Th>
+                <Th>Word</Th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <Td>0</Td>
+                <Td>s,z,ß</Td>
+              </tr>
+              <Td>1</Td>
+              <Td>t,d,th</Td>
+              <tr>
+                <Td>2</Td>
+                <Td>n</Td>
+              </tr>
+              <tr>
+                <Td>3</Td>
+                <Td>m</Td>
+              </tr>
+              <tr>
+                <Td>4</Td>
+                <Td>r</Td>
+              </tr>
+              <tr>
+                <Td>5</Td>
+                <Td>l</Td>
+              </tr>
+              <tr>
+                <Td>6</Td>
+                <Td>ch,j,sch</Td>
+              </tr>
+              <tr>
+                <Td>7</Td>
+                <Td>k,c,g,ck</Td>
+              </tr>
+              <tr>
+                <Td>8</Td>
+                <Td>f,v,w,ph</Td>
+              </tr>
+              <tr>
+                <Td>9</Td>
+                <Td>p,b</Td>
+              </tr>
+            </tbody>
+          </Table>
+        </TableContainer>
+      </PaddedContent>
+      <PaddedContent>
+        <h2>Explanation</h2>
+        <p>
+          The Major System is a mnemonic technique used to aid in memorizing numbers. It works by converting numbers
+          into consonant sounds, then into words by adding vowels.
+        </p>
+        <p>The words can then be used to create phrases or sentences to help remember the original number.</p>
+        <h2>How to use</h2>
+        <ol>
+          <li>Enter a number in the input field above</li>
+          <li>Enter a split length. If the word is 4 letters, 4 split length will query for the whole word.</li>
+          <li>Click the "Generate Mnemonics" button</li>
+          <li>View the generated mnemonics below</li>
+        </ol>
+      </PaddedContent>
     </Container>
   )
 }
