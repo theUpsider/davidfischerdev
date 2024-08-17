@@ -1,6 +1,11 @@
 const Imprint = () => {
   return (
-    <div style={{}}>
+    <div
+      style={{
+        overflow: 'scroll',
+        height: '100%',
+        transition: 'all 0.5s ease'
+      }}>
       <h1>IMPRINT //</h1>
 
       <section>

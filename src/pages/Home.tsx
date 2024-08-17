@@ -1,4 +1,8 @@
+import { useMediaQueryCustom } from '../components/useMediaQueryCustom'
+
 const Home = () => {
+  const media = useMediaQueryCustom()
+
   return (
     <div
       style={{
@@ -18,7 +22,7 @@ const Home = () => {
           flexDirection: 'column',
           justifyContent: 'space-evenly',
           textAlign: 'justify',
-          fontSize: '11.2vw',
+          fontSize: media ? '14.2rem' : '2rem',
           whiteSpace: 'nowrap',
           overflow: 'hidden',
           textOverflow: 'clip'
