@@ -22,7 +22,7 @@ const Projects = () => {
           }}>
           <h2>Logic Nodes for Comfy UI (+120 ⭐)</h2>
           <img
-            src="/comfylogic.png"
+            src="/images/comfylogic.png"
             alt="Logic Nodes for Comfy UI"
             style={{
               border: '1px solid black',
@@ -41,7 +41,7 @@ const Projects = () => {
             borderTop: '1px solid black'
           }}>
           <h2>VR Subway Simulator</h2>
-          <img src="/subway1.png" alt="VR Subway Simulator" style={{ width: '20%' }} />
+          <img src="/images/subway1.png" alt="VR Subway Simulator" style={{ width: '20%' }} />
           <p>
             Agoraphobia is a specific form of anxiety disorder in which fear is triggered by different places or
             situations, such as open spaces or crowds. The goal of the simulation is to reduce or remove the patients

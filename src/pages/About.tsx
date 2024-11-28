@@ -1,5 +1,4 @@
 import Button from '../components/Button'
-
 const About = () => {
   return (
     <div
@@ -15,6 +14,17 @@ const About = () => {
           Applied Sciences Kempten (Germany) and graduated with a Master's degree in Computer Science. Deep learning,
           game engineering, and data science are my passions.
         </p>
+        <img
+          src={'/images/DavidFischer.webp'}
+          alt="David Vincent Fischer, Software Engineer"
+          about="David Vincent Fischer, Software Engineer"
+          accessKey="David Vincent Fischer, Software Engineer"
+          style={{
+            maxWidth: '40%',
+            height: 'auto',
+            marginBottom: '1rem'
+          }}
+        />
         <p>
           I'm currently working at the University of Applied Sciences Kempten in the field of AI and Machine Learning.
           Besides my work in the office chair, I'm also interested in building connections between people.
