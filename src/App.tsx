@@ -4,6 +4,7 @@ import { darkTheme, lightTheme } from './styles'
 import Button from './components/Button'
 import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom'
 import { HorizontalCursorBar } from './components/HorizontalCursorBar'
+import MovingBanner from './components/MovingBanner'
 import ErrorPage from './pages/ErrorPage'
 import Imprint from './pages/Imprint'
 import Home from './pages/Home'
@@ -234,7 +235,7 @@ const App = () => {
               <h1>DAVID FISCHER 2024</h1>
               <h3>Software Engineer</h3>
               {/*WEBSITE UNDER CONSTRUCTION */}
-              <h3>Website Under Construction</h3>
+              {/* <h3>Website Under Construction</h3> */}
               <h3>Check my linkedin:</h3>
             </>
           ) : null}
@@ -261,6 +262,7 @@ const App = () => {
               transition: 'all 0.5s ease'
             }}>
             <Outlet />
+            <MovingBanner text="ENGINEER // DEVELOPER // DESIGNER // RESEARCHER // CREATOR //" />
           </div>
         </div>
       </div>

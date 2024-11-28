@@ -29,12 +29,20 @@ const About = () => {
           I'm currently working at the University of Applied Sciences Kempten in the field of AI and Machine Learning.
           Besides my work in the office chair, I'm also interested in building connections between people.
         </p>
-        <Button
-          onClick={() => {
-            window.open('https://davidfischer.dev//CVDavidFischer.pdf', '_blank')
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+            gap: '1rem'
           }}>
-          Download my (outdated but soon to be updated) CV
-        </Button>
+          <Button
+            onClick={() => {
+              window.open('https://davidfischer.dev//CVDavidFischer.pdf', '_blank')
+            }}>
+            Download my (outdated but soon to be updated) CV
+          </Button>
+        </div>
       </section>
       <div
         style={{
@@ -42,7 +50,9 @@ const About = () => {
           justifyContent: 'space-evenly',
           padding: '1.4rem',
           gap: '1rem',
-          border: '1px solid black'
+          marginTop: '1rem',
+          borderTop: '1px solid black',
+          borderBottom: '1px solid black'
         }}>
         <div
           style={{
