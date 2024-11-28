@@ -22,7 +22,7 @@ const Projects = () => {
           }}>
           <h2>Logic Nodes for Comfy UI (+120 ⭐)</h2>
           <img
-            src="https://private-user-images.githubusercontent.com/25013640/260309251-7807b2a4-989d-4021-9572-1d2d13725304.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjM4NTU2MTUsIm5iZiI6MTcyMzg1NTMxNSwicGF0aCI6Ii8yNTAxMzY0MC8yNjAzMDkyNTEtNzgwN2IyYTQtOTg5ZC00MDIxLTk1NzItMWQyZDEzNzI1MzA0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA4MTclMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwODE3VDAwNDE1NVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTE3M2VlM2Y0OTE5ZDlhNDZjMTczYWNmNzE4OWFlNDQwOWE4MmI1NGFlNTIzNTQyNjNiZWViZTAxODY2YjcwNWQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3phOrrXPsw6TzZPvz1SIq7wQaL4nS2-HP0OYpC_xy_w"
+            src="/comfylogic.png"
             alt="Logic Nodes for Comfy UI"
             style={{
               border: '1px solid black',
@@ -34,6 +34,7 @@ const Projects = () => {
             operators and accepts different data types, such as integers, strings, floats, and booleans. The extension
             also includes a debugging feature that prints inputs to the console.
           </p>
+          <a href="https://github.com/theUpsider/ComfyUI-Logic/">More information</a>
         </div>
         <div
           style={{
