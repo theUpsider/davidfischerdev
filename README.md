@@ -48,10 +48,32 @@ docker-compose -f docker-compose.dev.yml up --build
 
 The project includes GitHub Actions workflow for automated building and deployment. The workflow:
 
-1. Runs on pushes to `master`/`main` branches
+1. Runs on pushes to `master`/`main` branches and pull requests
 2. Installs dependencies and runs tests
 3. Builds the application with production environment variables
-4. Creates Docker image ready for deployment
+4. Builds and pushes Docker images to GitHub Container Registry (ghcr.io)
+5. Creates tagged images for different events (branch, PR, SHA, latest)
+
+### Docker Images
+
+Docker images are automatically built and pushed to GitHub Container Registry:
+
+- **Registry**: `ghcr.io/theUpsider/davidfischerdev`
+- **Tags**:
+  - `latest` (for main/master branch)
+  - `master` (for master branch pushes)
+  - `pr-XX` (for pull requests)
+  - `sha-XXXXXXX` (for specific commits)
+
+### Pulling Docker Images
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/theUpsider/davidfischerdev:latest
+
+# Run the pulled image
+docker run -p 80:80 ghcr.io/theUpsider/davidfischerdev:latest
+```
 
 ## Environment Variables
 
@@ -74,6 +96,47 @@ docker run -p 80:80 davidfischerdev-frontend
 ## Deployment
 
 The application is containerized and ready for deployment to any Docker-compatible environment. The production build uses nginx to serve the static files with proper routing configuration for React Router.
+
+### Deployment Options
+
+1. **GitHub Container Registry** (Recommended for production):
+
+   ```bash
+   docker pull ghcr.io/theUpsider/davidfischerdev:latest
+   docker run -p 80:80 ghcr.io/theUpsider/davidfischerdev:latest
+   ```
+
+2. **Local Docker Build**:
+
+   ```bash
+   docker build -t davidfischerdev-frontend .
+   docker run -p 80:80 davidfischerdev-frontend
+   ```
+
+3. **Docker Compose** (uses local build):
+   ```bash
+   docker-compose up --build
+   ```
+
+### Production Deployment with GitHub Registry
+
+Create a docker-compose.prod.yml for production deployment using GitHub Container Registry:
+
+```yaml
+version: '3.8'
+services:
+  frontend:
+    image: ghcr.io/theUpsider/davidfischerdev:latest
+    ports:
+      - '80:80'
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+```
 
 ## Features
 

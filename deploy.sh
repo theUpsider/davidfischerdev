@@ -2,7 +2,7 @@
 
 # Deployment script for David Fischer Dev website
 # Usage: ./deploy.sh [environment]
-# Environment: dev or prod (default: prod)
+# Environment: dev, prod, or ghcr (default: prod)
 
 ENVIRONMENT=${1:-prod}
 
@@ -15,12 +15,17 @@ if [ "$ENVIRONMENT" = "dev" ]; then
     echo "✅ Development deployment complete!"
     echo "🌐 Access at: http://localhost:3000"
 elif [ "$ENVIRONMENT" = "prod" ]; then
-    echo "🔧 Building for production..."
+    echo "🔧 Building for production (local build)..."
     docker-compose up --build -d
     echo "✅ Production deployment complete!"
     echo "🌐 Access at: http://localhost"
+elif [ "$ENVIRONMENT" = "ghcr" ]; then
+    echo "🔧 Deploying from GitHub Container Registry..."
+    docker-compose -f docker-compose.prod.yml up -d
+    echo "✅ GitHub Container Registry deployment complete!"
+    echo "🌐 Access at: http://localhost"
 else
-    echo "❌ Invalid environment. Use 'dev' or 'prod'"
+    echo "❌ Invalid environment. Use 'dev', 'prod', or 'ghcr'"
     exit 1
 fi
 
