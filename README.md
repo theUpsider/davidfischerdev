@@ -7,7 +7,7 @@ A personal website built with React, TypeScript, Vite, and includes a Major Syst
 The application uses environment variables to configure the API endpoint:
 
 - **Development**: `http://localhost:5000`
-- **Production**: `https://davidfischer.dev:5000`
+- **Production**: `https://api.davidfischer.dev`
 
 ## Development
 
@@ -79,14 +79,14 @@ docker run -p 80:80 ghcr.io/theUpsider/davidfischerdev:latest
 
 - `VITE_API_BASE_URL`: Base URL for API calls
   - Development: `http://localhost:5000`
-  - Production: `https://davidfischer.dev:5000`
+  - Production: `https://api.davidfischer.dev`
 
 ## Docker Commands
 
 ```bash
 # Build production image
 docker build -t davidfischerdev-frontend \
-  --build-arg VITE_API_BASE_URL=https://davidfischer.dev:5000 \
+  --build-arg VITE_API_BASE_URL=https://api.davidfischer.dev \
   --build-arg NODE_ENV=production .
 
 # Run container
@@ -147,6 +147,7 @@ If you encounter crypto-related errors during Docker builds:
 1. **Local builds work but Docker fails**: This is usually due to Node.js compatibility with Alpine Linux. The Dockerfile now uses `node:18-slim` instead of `node:18-alpine` to avoid these issues.
 
 2. **Legacy OpenSSL errors**: If you still encounter issues, try the legacy build:
+
    ```bash
    npm run build-prod-legacy
    ```

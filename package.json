@@ -11,7 +11,7 @@
     "build-dev": "tsc && vite build --mode development",
     "preview": "vite preview",
     "docker:build": "docker build -t davidfischerdev-frontend .",
-    "docker:build-prod": "docker build -t davidfischerdev-frontend --build-arg VITE_API_BASE_URL=https://davidfischer.dev:5000 --build-arg NODE_ENV=production .",
+    "docker:build-prod": "docker build -t davidfischerdev-frontend --build-arg VITE_API_BASE_URL=https://api.davidfischer.dev --build-arg NODE_ENV=production .",
     "docker:run": "docker run -p 3000:80 davidfischerdev-frontend",
     "docker:pull": "docker pull ghcr.io/theUpsider/davidfischerdev:latest",
     "docker:run-ghcr": "docker run -p 80:80 ghcr.io/theUpsider/davidfischerdev:latest",

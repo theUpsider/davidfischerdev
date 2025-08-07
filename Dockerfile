@@ -23,7 +23,7 @@ COPY . ./
 
 # Set build arguments and environment
 ARG NODE_ENV=production
-ARG VITE_API_BASE_URL=https://davidfischer.dev:5000
+ARG VITE_API_BASE_URL=https://api.davidfischer.dev
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 ENV NODE_ENV=$NODE_ENV
 

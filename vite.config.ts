@@ -6,12 +6,12 @@ export default defineConfig({
   plugins: [react()],
   publicDir: './public',
   define: {
-    global: 'globalThis',
+    global: 'globalThis'
   },
   build: {
     rollupOptions: {
       // Ensure compatibility with Node.js environments
-      external: [],
-    },
-  },
+      external: []
+    }
+  }
 })
