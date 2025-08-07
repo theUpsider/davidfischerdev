@@ -7,6 +7,7 @@
     "dev": "vite --host",
     "build": "tsc && vite build",
     "build-prod": "tsc && vite build --mode production",
+    "build-prod-legacy": "NODE_OPTIONS=\"--openssl-legacy-provider --max-old-space-size=4096\" npm run build-prod",
     "build-dev": "tsc && vite build --mode development",
     "preview": "vite preview",
     "docker:build": "docker build -t davidfischerdev-frontend .",

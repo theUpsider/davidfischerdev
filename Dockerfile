@@ -1,14 +1,31 @@
 # build environment
-FROM node:16.20.0-alpine AS build
+FROM node:18-alpine AS build
+
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
 WORKDIR /app
+
+# Set environment for better compatibility
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install
+
+# Copy package files first for better layer caching
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production=false && npm cache clean --force
+
+# Copy source code
 COPY . ./
+
+# Set build arguments and environment
 ARG NODE_ENV=production
 ARG VITE_API_BASE_URL=https://davidfischer.dev:5000
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV NODE_ENV=$NODE_ENV
+
+# Build the application
 RUN npm run build-prod
 
 # production environment
