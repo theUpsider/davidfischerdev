@@ -140,6 +140,25 @@ services:
 
 ## Troubleshooting
 
+### Recent Fixes (2025-08-07)
+
+#### CORS Issues ✅ Fixed
+
+- **Problem**: CORS errors when accessing API from development server
+- **Solution**: Added Vite proxy configuration to forward `/api` requests to `localhost:5000`
+- **Configuration**: Development uses `/api` proxy, production uses direct HTTPS calls
+
+#### HTML Validation Warnings ✅ Fixed
+
+- **Problem**: `<td>` elements directly under `<tbody>` without `<tr>` wrapper
+- **Solution**: Fixed table structure in Major System reference table
+
+#### User Experience Improvements ✅ Added
+
+- **Loading States**: Button shows "Generating..." while fetching data
+- **Error Handling**: Graceful fallback to mock data when API unavailable
+- **Better Error Messages**: Styled error notifications with theme support
+
 ### Docker Build Issues
 
 If you encounter crypto-related errors during Docker builds:

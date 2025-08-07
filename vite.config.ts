@@ -8,6 +8,15 @@ export default defineConfig({
   define: {
     global: 'globalThis'
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
   build: {
     rollupOptions: {
       // Ensure compatibility with Node.js environments

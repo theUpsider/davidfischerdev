@@ -70,15 +70,49 @@ const Th = styled.th`
   text-align: center;
 `
 
+const ErrorMessage = styled.div<{ theme: any }>`
+  background-color: ${(props) => (props.theme === 'dark' ? '#3c1518' : '#f8d7da')};
+  color: ${(props) => (props.theme === 'dark' ? '#f5c2c7' : '#721c24')};
+  border: 1px solid ${(props) => (props.theme === 'dark' ? '#842029' : '#f5c2c7')};
+  border-radius: 4px;
+  padding: 1rem;
+  margin-top: 1rem;
+
+  strong {
+    font-weight: bold;
+  }
+`
+
 const Td = styled.td`
   border: 1px solid;
   padding: 8px;
   text-align: start;
 `
 
+// Mock data for when API is not available
+const mockMnemonics: { [key: string]: Mnemonic[] } = {
+  '2': [
+    { id: 1, number: '2', word: 'Noah' },
+    { id: 2, number: '2', word: 'new' },
+    { id: 3, number: '2', word: 'in' }
+  ],
+  '3': [
+    { id: 4, number: '3', word: 'me' },
+    { id: 5, number: '3', word: 'my' },
+    { id: 6, number: '3', word: 'am' }
+  ],
+  '23': [
+    { id: 7, number: '23', word: 'name' },
+    { id: 8, number: '23', word: 'enemy' },
+    { id: 9, number: '23', word: 'anime' }
+  ]
+}
+
 const App = () => {
   const [mnemonics, setMnemonics] = useState<{ [key: string]: Mnemonic[] }>({})
   const [searchParams, setSearchParams] = useSearchParams()
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const { theme } = useTheme()
 
   const splitNumber = (number: string, splitLength: number) => {
@@ -91,27 +125,51 @@ const App = () => {
 
   const fetchMnemonics = async () => {
     try {
+      setLoading(true)
+      setError(null)
       const searchNumber = searchParams.get('number') ?? ''
       const splitLength = parseInt(searchParams.get('split') ?? '0', 10)
 
       if (!searchNumber || isNaN(splitLength) || splitLength <= 0) {
+        setLoading(false)
         return
       }
 
       const splits = splitNumber(searchNumber, splitLength)
       const mnemonicsData: { [key: string]: Mnemonic[] } = {}
 
-      await Promise.all(
-        splits.map(async (split) => {
-          const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
-          const response = await axios.get(`${apiBaseUrl}/v1/words/number/${split}`)
-          mnemonicsData[split] = response.data
+      try {
+        await Promise.all(
+          splits.map(async (split) => {
+            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
+            const response = await axios.get(`${apiBaseUrl}/v1/words/number/${split}`)
+            mnemonicsData[split] = response.data
+          })
+        )
+        setMnemonics(mnemonicsData)
+      } catch (apiError) {
+        // Fall back to mock data if API is not available
+        console.warn('API not available, using mock data:', apiError)
+        const mockData: { [key: string]: Mnemonic[] } = {}
+        splits.forEach((split) => {
+          if (mockMnemonics[split]) {
+            mockData[split] = mockMnemonics[split]
+          } else {
+            // Generate simple mock data for unknown splits
+            mockData[split] = [
+              { id: Math.random(), number: split, word: `mock-word-${split}` },
+              { id: Math.random(), number: split, word: `example-${split}` }
+            ]
+          }
         })
-      )
-
-      setMnemonics(mnemonicsData)
+        setMnemonics(mockData)
+        setError('API server not available. Showing mock data for demonstration.')
+      }
     } catch (error) {
-      console.error('Error fetching mnemonics:', error)
+      console.error('Error in fetchMnemonics:', error)
+      setError('An unexpected error occurred. Please try again.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -137,7 +195,14 @@ const App = () => {
           onChange={(e) => setSearchParams({ number: searchParams.get('number') ?? '', split: e.target.value })}
           placeholder="Enter split length"
         />
-        <Button onClick={fetchMnemonics}>Generate Mnemonics</Button>
+        <Button onClick={fetchMnemonics} disabled={loading}>
+          {loading ? 'Generating...' : 'Generate Mnemonics'}
+        </Button>
+        {error && (
+          <ErrorMessage theme={theme.palette.type}>
+            <strong>Notice:</strong> {error}
+          </ErrorMessage>
+        )}
         {Object.keys(mnemonics).length > 0 && (
           <TableContainer>
             <Table>
@@ -180,8 +245,10 @@ const App = () => {
                 <Td>0</Td>
                 <Td>s,z,ß</Td>
               </tr>
-              <Td>1</Td>
-              <Td>t,d,th</Td>
+              <tr>
+                <Td>1</Td>
+                <Td>t,d,th</Td>
+              </tr>
               <tr>
                 <Td>2</Td>
                 <Td>n</Td>
