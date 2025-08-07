@@ -22,5 +22,7 @@ export default defineConfig({
       // Ensure compatibility with Node.js environments
       external: []
     }
-  }
+  },
+  // Ensure environment variables are available
+  envPrefix: 'VITE_'
 })
