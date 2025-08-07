@@ -5,8 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build-prod": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "build-prod": "tsc && vite build --mode production",
+    "build-dev": "tsc && vite build --mode development",
+    "preview": "vite preview",
+    "docker:build": "docker build -t davidfischerdev-frontend .",
+    "docker:build-prod": "docker build -t davidfischerdev-frontend --build-arg VITE_API_BASE_URL=https://davidfischer.dev:5000 --build-arg NODE_ENV=production .",
+    "docker:run": "docker run -p 3000:80 davidfischerdev-frontend",
+    "docker:compose:up": "docker-compose up --build",
+    "docker:compose:up-dev": "docker-compose -f docker-compose.dev.yml up --build"
   },
   "dependencies": {
     "@emotion/styled": "^11.11.5",

@@ -103,7 +103,8 @@ const App = () => {
 
       await Promise.all(
         splits.map(async (split) => {
-          const response = await axios.get(`http://localhost:5000/v1/words/number/${split}`)
+          const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'
+          const response = await axios.get(`${apiBaseUrl}/v1/words/number/${split}`)
           mnemonicsData[split] = response.data
         })
       )
@@ -152,8 +153,8 @@ const App = () => {
                   {Object.keys(mnemonics).map((split) => (
                     <Td key={split}>
                       <ul>
-                        {mnemonics[split].map((mnemonic, index) => (
-                          <li key={index}>{mnemonic.word}</li>
+                        {mnemonics[split].map((mnemonic) => (
+                          <li key={mnemonic.id}>{mnemonic.word}</li>
                         ))}
                       </ul>
                     </Td>

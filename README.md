@@ -1,40 +1,83 @@
-# Material UI - Vite.js in TypeScript example
-## Notes
-docker build . -t davidfischerdev
-## How to use
+# David Fischer Dev - Personal Website
 
-Download the example [or clone the repo](https://github.com/mui/material-ui):
+A personal website built with React, TypeScript, Vite, and includes a Major System Mnemonics Generator.
 
-<!-- #default-branch-switch -->
+## Environment Configuration
 
-```bash
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2 material-ui-master/examples/material-ui-vite-ts
-cd material-ui-vite-ts
-```
+The application uses environment variables to configure the API endpoint:
 
-Install it and run:
+- **Development**: `http://localhost:5000`
+- **Production**: `https://davidfischer.dev:5000`
+
+## Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-or:
+## Production Build
 
-<!-- #default-branch-switch -->
+### Local Build
 
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/material-ui-vite-ts)
+```bash
+npm run build-prod
+```
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui/material-ui/tree/master/examples/material-ui-vite-ts)
+### Docker Build
 
-## The idea behind the example
+```bash
+# Build for production
+npm run docker:build-prod
 
-This example uses [Vite.js](https://github.com/vitejs/vite).
-It includes `@mui/material` and its peer dependencies, including [Emotion](https://emotion.sh/docs/introduction), the default style engine in Material UI v5.
+# Run the container
+docker run -p 3000:80 davidfischerdev-frontend
+```
 
-## What's next?
+### Using Docker Compose
 
-<!-- #default-branch-switch -->
+```bash
+# Production
+docker-compose up --build
 
-You now have a working example project.
-You can head back to the documentation and continue by browsing the [templates](https://mui.com/material-ui/getting-started/templates/) section.
+# Development
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+## CI/CD
+
+The project includes GitHub Actions workflow for automated building and deployment. The workflow:
+
+1. Runs on pushes to `master`/`main` branches
+2. Installs dependencies and runs tests
+3. Builds the application with production environment variables
+4. Creates Docker image ready for deployment
+
+## Environment Variables
+
+- `VITE_API_BASE_URL`: Base URL for API calls
+  - Development: `http://localhost:5000`
+  - Production: `https://davidfischer.dev:5000`
+
+## Docker Commands
+
+```bash
+# Build production image
+docker build -t davidfischerdev-frontend \
+  --build-arg VITE_API_BASE_URL=https://davidfischer.dev:5000 \
+  --build-arg NODE_ENV=production .
+
+# Run container
+docker run -p 80:80 davidfischerdev-frontend
+```
+
+## Deployment
+
+The application is containerized and ready for deployment to any Docker-compatible environment. The production build uses nginx to serve the static files with proper routing configuration for React Router.
+
+## Features
+
+- **Major System Mnemonics Generator**: Tool for generating mnemonic devices using the Major System
+- **Responsive Design**: Works on desktop and mobile devices
+- **Dark/Light Theme**: Theme switching capability
+- **Production Ready**: Environment-specific configuration and Docker support
