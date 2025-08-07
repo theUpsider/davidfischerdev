@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import styled from '@emotion/styled'
 import axios from 'axios'
 import { useSearchParams } from 'react-router-dom'
 import Button from '../components/Button'
 import { useTheme } from '../components/ThemeProvider'
+import { useSplitContentDispatch } from '../components/SplitContentContext'
 
 type Mnemonic = {
   id: number
@@ -114,6 +115,7 @@ const App = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { theme } = useTheme()
+  const { setUpperContent, setLowerContent } = useSplitContentDispatch()
 
   const splitNumber = (number: string, splitLength: number) => {
     const result = []
@@ -173,12 +175,8 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    fetchMnemonics()
-  }, [])
-
-  return (
-    <Container>
+  const upperContent = useMemo(
+    () => (
       <Card>
         <Title>Major System Mnemonics Generator</Title>
         <Input
@@ -230,7 +228,13 @@ const App = () => {
           </TableContainer>
         )}
       </Card>
-      <PaddedContent>
+    ),
+    [mnemonics, searchParams, loading, error, theme.palette.type, fetchMnemonics]
+  )
+
+  const lowerContent = useMemo(
+    () => (
+      <div style={{ padding: '20px' }}>
         <h2>Remember Table German</h2>
         <TableContainer>
           <Table>
@@ -284,24 +288,42 @@ const App = () => {
             </tbody>
           </Table>
         </TableContainer>
-      </PaddedContent>
-      <PaddedContent>
-        <h2>Explanation</h2>
-        <p>
-          The Major System is a mnemonic technique used to aid in memorizing numbers. It works by converting numbers
-          into consonant sounds, then into words by adding vowels.
-        </p>
-        <p>The words can then be used to create phrases or sentences to help remember the original number.</p>
-        <h2>How to use</h2>
-        <ol>
-          <li>Enter a number in the input field above</li>
-          <li>Enter a split length. If the word is 4 letters, 4 split length will query for the whole word.</li>
-          <li>Click the "Generate Mnemonics" button</li>
-          <li>View the generated mnemonics below</li>
-        </ol>
-      </PaddedContent>
-    </Container>
+        <div style={{ marginTop: '20px' }}>
+          <h3>Explanation</h3>
+          <p>
+            The Major System is a mnemonic technique used to aid in memorizing numbers. It works by converting numbers
+            into consonant sounds, then into words by adding vowels.
+          </p>
+          <p>The words can then be used to create phrases or sentences to help remember the original number.</p>
+
+          <h3>How to use</h3>
+          <ol>
+            <li>Enter a number in the input field above</li>
+            <li>Enter a split length. If the word is 4 letters, 4 split length will query for the whole word.</li>
+            <li>Click the "Generate Mnemonics" button</li>
+            <li>View the generated mnemonics below</li>
+          </ol>
+        </div>
+      </div>
+    ),
+    []
   )
+
+  useEffect(() => {
+    fetchMnemonics()
+  }, [])
+
+  useEffect(() => {
+    setUpperContent(upperContent)
+    setLowerContent(lowerContent)
+
+    return () => {
+      setUpperContent(null)
+      setLowerContent(null)
+    }
+  }, [upperContent, lowerContent, setUpperContent, setLowerContent])
+
+  return null
 }
 
 export default App

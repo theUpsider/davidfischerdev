@@ -2,9 +2,9 @@ import * as React from 'react'
 import { ThemeProvider, useTheme } from './components/ThemeProvider'
 import { darkTheme, lightTheme } from './styles'
 import Button from './components/Button'
-import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom'
-import { HorizontalCursorBar } from './components/HorizontalCursorBar'
-import MovingBanner from './components/MovingBanner'
+import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom'
+import { SplitContentProvider } from './components/SplitContentContext'
+import { SplitContentRenderer } from './components/SplitContentRenderer'
 import ErrorPage from './pages/ErrorPage'
 import Imprint from './pages/Imprint'
 import Home from './pages/Home'
@@ -12,6 +12,8 @@ import Projects from './pages/Projects'
 import { useMediaQueryCustom } from './components/useMediaQueryCustom'
 import About from './pages/About'
 import MajorSystem from './pages/MajorSystem'
+import Contact from './pages/Contact'
+import Media from './pages/Media'
 
 const initialTheme = lightTheme
 
@@ -90,9 +92,9 @@ const VertialMenu = ({
     if (refs.current[index].current) {
       const rect = (refs.current[index].current as HTMLElement).getBoundingClientRect()
       const boundingDivRect = (boundingDiv.current as HTMLElement).getBoundingClientRect()
-      setBarPosition(rect.top + window.scrollY) // Update the position of the bar
-      barpositionCallback(rect.top + window.scrollY)
-      setBarLeft(boundingDivRect?.left + boundingDivRect.width) // Update the position of the bar
+      setBarPosition(Number((rect.top + window.scrollY).toFixed(0))) // Update the position of the bar
+      barpositionCallback(Number((rect.top + window.scrollY).toFixed(0))) // Update the position of the bar
+      setBarLeft(Number((boundingDivRect?.left + boundingDivRect.width).toFixed(0))) // Update the position of the bar
       setHoveredIndex(index)
     }
   }
@@ -116,6 +118,9 @@ const VertialMenu = ({
           key={item[0]} // Unique key
           ref={refs.current[index]} // Attach the ref
           onMouseEnter={() => handleHover(index)} // Handle hover
+          onFocus={() => handleHover(index)}
+          role="button"
+          tabIndex={0}
           style={{
             display: 'flex'
 
@@ -140,16 +145,17 @@ const VertialMenu = ({
               fontWeight: 'bold',
               transform: matches ? 'rotate(0deg)' : 'rotate(-90deg)'
             }}>
-            © David Fischer 2024
+            © David Fischer 2025
           </p>
         </div>
       )}
+      {/* Top bar */}
       <div
         style={{
           transformOrigin: 'left',
           rotate: '-90deg',
           position: 'absolute',
-          top: matches ? barPosition - 29 : barPosition - 9,
+          top: matches ? barPosition - 35 : barPosition - 9,
           width: 'max-content',
           left: matches ? barLeft + 29 + 30 : barLeft + 10,
           transition: 'top 0.5s ease'
@@ -158,7 +164,7 @@ const VertialMenu = ({
           <h2
             style={{
               fontWeight: 'bold',
-              paddingLeft: 10
+              padding: '0 1rem'
             }}>
             {items[hoveredIndex][1]}
           </h2>
@@ -166,8 +172,7 @@ const VertialMenu = ({
           <p
             style={{
               margin: 0,
-              fontWeight: 'bold',
-              paddingLeft: 10
+              fontWeight: 'bold'
             }}>
             {items[hoveredIndex][1]}
           </p>
@@ -179,18 +184,51 @@ const VertialMenu = ({
           }}>
           <div
             // Stretching floating bar
-            key={Math.random()}
+            key={hoveredIndex}
             style={{
               borderTop: '1px solid ' + theme.palette.text.primary,
               animation: `stretch 3s`,
-              height: 2,
               animationFillMode: 'forwards',
               animationTimingFunction: 'cubic-bezier(0.39, 0.58, 0, 1.04)'
             }}
           />
         </div>
       </div>
-      <HorizontalCursorBar barPosition={barPosition} matches={matches} />
+
+      {/* Bottom mirrored bar */}
+      <div
+        style={{
+          transformOrigin: 'left',
+          rotate: '90deg',
+          position: 'absolute',
+          top: matches ? barPosition - 35 : barPosition - 9,
+          width: 'max-content',
+          left: matches ? barLeft + 29 + 30 : barLeft + 10,
+          transition: 'top 0.5s ease'
+        }}>
+        <div
+          // This is used so that the bar has a width based on its position. The animation in the bar sets it to 100% width so it will stretch to the bottom.
+          style={{
+            width: barPosition
+          }}></div>
+        {matches ? (
+          <h2
+            style={{
+              fontWeight: 'bold',
+              padding: '0 1rem'
+            }}>
+            {items[hoveredIndex][1]}
+          </h2>
+        ) : (
+          <p
+            style={{
+              margin: 0,
+              fontWeight: 'bold'
+            }}>
+            {items[hoveredIndex][1]}
+          </p>
+        )}
+      </div>
     </div>
   )
 }
@@ -232,7 +270,7 @@ const App = () => {
           }}>
           {matches ? (
             <>
-              <h1>DAVID FISCHER 2024</h1>
+              <h1>DAVID FISCHER 2025</h1>
               <h3>Software Engineer</h3>
               {/*WEBSITE UNDER CONSTRUCTION */}
               {/* <h3>Website Under Construction</h3> */}
@@ -247,24 +285,7 @@ const App = () => {
             }}
           />
         </div>
-        <div
-          // Actual content right side field
-          style={{
-            flex: 1,
-            display: 'flex',
-            borderLeft: `1px solid ${theme.palette.foreground.primary}`,
-            paddingLeft: matches ? 55 : 18
-          }}>
-          <div
-            // Bar position separates upper and lower content
-            style={{
-              height: barPosition,
-              transition: 'all 0.5s ease'
-            }}>
-            <Outlet />
-            <MovingBanner text="ENGINEER // DEVELOPER // DESIGNER // RESEARCHER // CREATOR //" />
-          </div>
-        </div>
+        <SplitContentRenderer barPosition={barPosition} matches={matches} />
       </div>
     </div>
   )
@@ -286,32 +307,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'contact',
-        element: (
-          <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column' }}>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-
-                padding: '20px'
-              }}>
-              <h1>CONTACT //</h1>
-              <p>Write me an email</p>
-              <a
-                style={{
-                  textDecoration: 'none'
-                }}
-                href="mailto:davidvfischer@gmail.com">
-                davidvfischer@gmail.com
-              </a>
-              <p>Connect with me on </p>
-              <a href="https://www.linkedin.com/in/david-fischer-824566155/">LinkedIn</a>
-              <p>Check out my </p>
-              <a href="https://www.github.com/theupsider">GitHub</a>
-            </div>
-          </div>
-        )
+        element: <Contact />
       },
       {
         path: 'projects',
@@ -328,14 +324,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'media',
-        element: (
-          <div
-            style={{
-              transition: 'all 0.5s ease'
-            }}>
-            <h1>Media</h1>
-          </div>
-        )
+        element: <Media />
       },
       {
         path: '*',
@@ -347,6 +336,8 @@ const router = createBrowserRouter([
 
 export default () => (
   <ThemeProvider initialTheme={initialTheme}>
-    <RouterProvider router={router} />
+    <SplitContentProvider>
+      <RouterProvider router={router} />
+    </SplitContentProvider>
   </ThemeProvider>
 )

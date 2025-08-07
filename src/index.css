@@ -26,16 +26,17 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden; /*  Optional: if you want to disable scroll */
-  font-family: monospace;
+  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 
+    'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @keyframes stretch {
   0% {
     width: 0;
-    /* transform: translateX(-50%); */
   }
   100% {
     width: 100%;
-    /* transform: translateX(-50%); */
   }
 }
