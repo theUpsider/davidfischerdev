@@ -138,6 +138,28 @@ services:
       start_period: 40s
 ```
 
+## Troubleshooting
+
+### Docker Build Issues
+
+If you encounter crypto-related errors during Docker builds:
+
+1. **Local builds work but Docker fails**: This is usually due to Node.js compatibility with Alpine Linux. The Dockerfile now uses `node:18-slim` instead of `node:18-alpine` to avoid these issues.
+
+2. **Legacy OpenSSL errors**: If you still encounter issues, try the legacy build:
+   ```bash
+   npm run build-prod-legacy
+   ```
+
+3. **Memory issues**: The build process uses `--max-old-space-size=4096` to prevent memory-related build failures.
+
+### Common Solutions
+
+- Ensure you're using Node.js 18 or higher
+- Clear npm cache: `npm cache clean --force`
+- Delete `node_modules` and reinstall: `rm -rf node_modules package-lock.json && npm install`
+- For Docker: Ensure Docker has sufficient memory allocated (recommend 4GB+)
+
 ## Features
 
 - **Major System Mnemonics Generator**: Tool for generating mnemonic devices using the Major System

@@ -1,8 +1,10 @@
-# build environment
-FROM node:18-alpine AS build
+# build environment - using standard node image instead of alpine
+FROM node:18-slim AS build
 
-# Install dumb-init for proper signal handling
-RUN apk add --no-cache dumb-init
+# Install necessary packages for building
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
