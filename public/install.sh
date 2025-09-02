@@ -64,6 +64,11 @@ install_synology_drive() {
   for sub in "Ubuntu/Installer/x86_64" "Ubuntu/x86_64" "" ; do
     page="$base/$ver/$sub"
     deb="$(curl -fsSL "$page/" 2>/dev/null | grep -oP 'href="\K[^"]+\.deb' | grep -E 'synology-drive-client.*(x86_64|amd64)\.deb' | head -1 || true)"
+    if [[ -z "${deb:-}" && "$sub" == "" ]]; then
+      echo "Could not locate Synology .deb; trying Flatpak from Flathub."
+      flatpak install -y --system flathub com.synology.SynologyDrive
+      return 0
+    fi
     if [[ -n "${deb:-}" ]]; then url="$page/$deb"; break; fi
   done
   if [[ -z "${url:-}" ]]; then echo "Could not locate Synology .deb under $ver; skipping."; return 0; fi
