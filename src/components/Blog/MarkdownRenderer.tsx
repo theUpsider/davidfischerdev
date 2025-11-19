@@ -4,6 +4,7 @@ import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeSanitize from 'rehype-sanitize'
+import Image from 'next/image'
 import 'highlight.js/styles/github-dark.css'
 
 interface MarkdownRendererProps {
@@ -28,6 +29,32 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               <code className={isInline ? 'inline-code' : className} {...props}>
                 {children}
               </code>
+            )
+          },
+          // Optimize images with Next.js Image component
+          img: ({ src, alt }) => {
+            if (!src) return null
+
+            // Ensure src is a string
+            const imageSrc = typeof src === 'string' ? src : ''
+            if (!imageSrc) return null
+
+            // Handle external vs internal images
+            const isExternal = imageSrc.startsWith('http://') || imageSrc.startsWith('https://')
+
+            return (
+              <span style={{ display: 'block', margin: '2rem 0' }}>
+                <Image
+                  src={imageSrc}
+                  alt={alt || ''}
+                  width={800}
+                  height={600}
+                  style={{ width: '100%', height: 'auto', borderRadius: '8px' }}
+                  loading="lazy"
+                  quality={85}
+                  unoptimized={isExternal}
+                />
+              </span>
             )
           }
         }}>

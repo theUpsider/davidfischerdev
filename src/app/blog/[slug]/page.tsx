@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getPostBySlug, getAllPosts } from '@/app/actions/blogActions'
 import { MarkdownRenderer } from '@/components/Blog/MarkdownRenderer'
+import { calculateReadingTime } from '@/lib/utils'
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -76,6 +77,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const imagePath = post.featuredImage || '/images/og/blog-default.svg'
   const imageUrl = `https://davidfischer.dev${imagePath}`
   const postUrl = `https://davidfischer.dev/blog/${post.slug}`
+  const readingTime = calculateReadingTime(post.content)
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -120,6 +122,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </span>
             <span> • </span>
             <span>{post.author}</span>
+            <span> • </span>
+            <span>{readingTime} min read</span>
           </div>
           {post.tags.length > 0 && (
             <div className="blog-tags">

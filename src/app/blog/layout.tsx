@@ -2,6 +2,7 @@ import './blog.css'
 import { BlogThemeProvider } from '@/components/Blog/BlogThemeProvider'
 import { BlogHeader } from '@/components/Blog/BlogHeader'
 import { isAuthenticated } from '@/app/actions/authActions'
+import Breadcrumbs from '@/components/Breadcrumbs'
 
 export const metadata = {
   title: 'Blog | David Fischer',
@@ -15,7 +16,10 @@ export default async function BlogLayout({ children }: { children: React.ReactNo
     <BlogThemeProvider>
       <div className="blog-container">
         <BlogHeader isAdmin={isAdmin} />
-        <main className="blog-main">{children}</main>
+        <main className="blog-main">
+          <Breadcrumbs />
+          {children}
+        </main>
       </div>
     </BlogThemeProvider>
   )
