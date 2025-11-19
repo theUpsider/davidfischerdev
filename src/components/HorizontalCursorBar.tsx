@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useTheme } from './ThemeProvider'
 
 export const HorizontalCursorBar = ({ barPosition, matches }: { barPosition?: number; matches?: boolean }) => {

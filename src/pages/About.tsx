@@ -1,3 +1,4 @@
+'use client'
 import { useEffect } from 'react'
 import Button from '../components/Button'
 import { useSplitContentDispatch } from '../components/SplitContentContext'

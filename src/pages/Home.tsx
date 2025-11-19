@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useMemo } from 'react'
 import { useMediaQueryCustom } from '../components/useMediaQueryCustom'
 import { useSplitContentDispatch } from '../components/SplitContentContext'

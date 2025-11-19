@@ -1,5 +1,5 @@
 import React from 'react'
-import { DefaultTheme } from '../styles'
+import { DefaultTheme, lightTheme } from '../styles'
 import ThemeContext, { ThemeContextType } from './ThemeContext'
 
 type ThemeProviderProps = {
@@ -22,6 +22,13 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ initialTheme, chil
 export function useTheme(): ThemeContextType {
   const context = React.useContext(ThemeContext)
   if (context === undefined) {
+    // Return default theme during SSR instead of throwing
+    if (typeof window === 'undefined') {
+      return {
+        theme: lightTheme,
+        setTheme: () => {}
+      }
+    }
     throw new Error('useTheme must be used within a ThemeProvider')
   }
   return context

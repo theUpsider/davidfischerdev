@@ -45,6 +45,10 @@ export const SplitContentProvider: React.FC<{ children: ReactNode }> = ({ childr
 export const useSplitContentState = () => {
   const context = useContext(SplitContentStateContext)
   if (context === undefined) {
+    // Return default values during SSR instead of throwing
+    if (typeof window === 'undefined') {
+      return { upperContent: null, lowerContent: null }
+    }
     throw new Error('useSplitContentState must be used within a SplitContentProvider')
   }
   return context
@@ -53,6 +57,13 @@ export const useSplitContentState = () => {
 export const useSplitContentDispatch = () => {
   const context = useContext(SplitContentDispatchContext)
   if (context === undefined) {
+    // Return no-op functions during SSR instead of throwing
+    if (typeof window === 'undefined') {
+      return {
+        setUpperContent: () => {},
+        setLowerContent: () => {}
+      }
+    }
     throw new Error('useSplitContentDispatch must be used within a SplitContentProvider')
   }
   return context

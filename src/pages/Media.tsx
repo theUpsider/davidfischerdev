@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useMemo } from 'react'
 import { useSplitContentDispatch } from '../components/SplitContentContext'
 
@@ -15,36 +16,11 @@ const Media = () => {
         }}>
         <h1>MEDIA //</h1>
         <p>Connect with me across different platforms!</p>
-
         <div style={{ marginTop: '30px' }}>
           <h2>🎥 YouTube</h2>
           <p>Tech tutorials, project showcases, and behind-the-scenes content</p>
-          <a href="https://youtube.com/@davidfischerdev" target="_blank" rel="noopener noreferrer">
-            @davidfischerdev
-          </a>
-        </div>
-
-        <div style={{ marginTop: '30px' }}>
-          <h2>📸 Instagram</h2>
-          <p>Quick updates, development snippets, and personal moments</p>
-          <a href="https://instagram.com/davidfischer.dev" target="_blank" rel="noopener noreferrer">
-            @davidfischer.dev
-          </a>
-        </div>
-
-        <div style={{ marginTop: '30px' }}>
-          <h2>🐦 Twitter/X</h2>
-          <p>Tech thoughts, industry news, and quick updates</p>
-          <a href="https://twitter.com/davidfischerdev" target="_blank" rel="noopener noreferrer">
-            @davidfischerdev
-          </a>
-        </div>
-
-        <div style={{ marginTop: '30px' }}>
-          <h2>👥 Facebook</h2>
-          <p>Community updates and project announcements</p>
-          <a href="https://facebook.com/davidfischer.dev" target="_blank" rel="noopener noreferrer">
-            David Fischer Developer
+          <a href="https://www.youtube.com/@theupsider" target="_blank" rel="noopener noreferrer">
+            @theupsider
           </a>
         </div>
       </div>
@@ -69,15 +45,6 @@ const Media = () => {
           <ul>
             <li>
               <strong>🎬 YouTube:</strong> Long-form tutorials, project walkthroughs, live coding sessions
-            </li>
-            <li>
-              <strong>📷 Instagram:</strong> Visual progress updates, workspace setups, quick tips
-            </li>
-            <li>
-              <strong>🐦 Twitter:</strong> Tech discussions, industry insights, quick announcements
-            </li>
-            <li>
-              <strong>👤 Facebook:</strong> Community engagement, event announcements, milestone celebrations
             </li>
           </ul>
         </div>

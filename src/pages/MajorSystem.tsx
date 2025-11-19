@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react'
+'use client'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import styled from '@emotion/styled'
 import axios from 'axios'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import Button from '../components/Button'
 import { useTheme } from '../components/ThemeProvider'
 import { useSplitContentDispatch } from '../components/SplitContentContext'
@@ -12,26 +13,12 @@ type Mnemonic = {
   word: string
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 2rem;
-  overflow-y: auto;
-`
-
 const Card = styled.div`
   padding: 1rem;
   margin: 1rem;
   border: 1px solid;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`
-
-const PaddedContent = styled.div`
-  padding: 2rem;
 `
 
 const Title = styled.h1`
@@ -109,13 +96,26 @@ const mockMnemonics: { [key: string]: Mnemonic[] } = {
   ]
 }
 
-const App = () => {
+const MajorSystem = () => {
   const [mnemonics, setMnemonics] = useState<{ [key: string]: Mnemonic[] }>({})
-  const [searchParams, setSearchParams] = useSearchParams()
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { theme } = useTheme()
   const { setUpperContent, setLowerContent } = useSplitContentDispatch()
+
+  const updateParams = useCallback(
+    (updates: { [key: string]: string }) => {
+      const params = new URLSearchParams(searchParams.toString())
+      Object.entries(updates).forEach(([key, value]) => {
+        params.set(key, value)
+      })
+      router.push(pathname + '?' + params.toString())
+    },
+    [searchParams, router, pathname]
+  )
 
   const splitNumber = (number: string, splitLength: number) => {
     const result = []
@@ -143,7 +143,7 @@ const App = () => {
       try {
         await Promise.all(
           splits.map(async (split) => {
-            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api'
+            const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || '/api'
             const response = await axios.get(`${apiBaseUrl}/v1/words/number/${split}`)
             mnemonicsData[split] = response.data
           })
@@ -183,14 +183,14 @@ const App = () => {
           darkTheme={theme.palette.type === 'dark'}
           type="text"
           value={searchParams.get('number') ?? ''}
-          onChange={(e) => setSearchParams({ number: e.target.value, split: searchParams.get('split') ?? '' })}
+          onChange={(e) => updateParams({ number: e.target.value, split: searchParams.get('split') ?? '' })}
           placeholder="Enter a number"
         />
         <Input
           darkTheme={theme.palette.type === 'dark'}
           type="number"
           value={searchParams.get('split') ?? ''}
-          onChange={(e) => setSearchParams({ number: searchParams.get('number') ?? '', split: e.target.value })}
+          onChange={(e) => updateParams({ number: searchParams.get('number') ?? '', split: e.target.value })}
           placeholder="Enter split length"
         />
         <Button onClick={fetchMnemonics} disabled={loading}>
@@ -326,4 +326,4 @@ const App = () => {
   return null
 }
 
-export default App
+export default MajorSystem

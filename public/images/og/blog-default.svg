@@ -1,0 +1,7 @@
+<svg width="1200" height="630"
+    xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="630" fill="#000000"/>
+    <text x="50%" y="40%" font-family="Arial, sans-serif" font-size="72" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">David Fischer</text>
+    <text x="50%" y="55%" font-family="Arial, sans-serif" font-size="48" fill="#888888" text-anchor="middle" dominant-baseline="middle">Blog</text>
+    <text x="50%" y="65%" font-family="Arial, sans-serif" font-size="28" fill="#666666" text-anchor="middle" dominant-baseline="middle">Technical Articles & Insights</text>
+</svg>

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTheme } from './ThemeProvider'
 import { darkTheme, lightTheme } from '../styles'
 import Button from './Button'

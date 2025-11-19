@@ -9,6 +9,8 @@ export interface BlogPost {
   updatedAt: string
   author: string
   published: boolean
+  featuredImage?: string // Path to featured image, e.g., '/images/blog/post-1.png'
+  featuredImageAlt?: string // Alt text for featured image
 }
 
 export interface BlogTag {
