@@ -1,5 +1,4 @@
 import '../index.css'
-import { AppShell } from '../components/AppShell'
 
 export const metadata = {
   title: 'David Fischer',
@@ -14,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AppShell>{children}</AppShell>
+        {children}
       </body>
     </html>
   )

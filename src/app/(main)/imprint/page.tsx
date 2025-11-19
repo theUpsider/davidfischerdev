@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useMemo } from 'react'
-import { useSplitContentDispatch } from '../../components/SplitContentContext'
+import { useSplitContentDispatch } from '@/components/SplitContentContext'
 
 const Imprint = () => {
   const { setUpperContent, setLowerContent } = useSplitContentDispatch()

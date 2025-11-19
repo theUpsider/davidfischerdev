@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
-import Button from '../../components/Button'
-import { useSplitContentDispatch } from '../../components/SplitContentContext'
+import Button from '@/components/Button'
+import { useSplitContentDispatch } from '@/components/SplitContentContext'
 
 const About = () => {
   const { setUpperContent, setLowerContent } = useSplitContentDispatch()

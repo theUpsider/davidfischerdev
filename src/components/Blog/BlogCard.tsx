@@ -1,39 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { BlogPost } from '../../types/blog'
-import { useTheme } from '../ThemeProvider'
 
 interface BlogCardProps {
   post: BlogPost
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
-  const { theme } = useTheme()
-
   return (
-    <div
-      style={{
-        border: `1px solid ${theme.palette.foreground.primary}`,
-        padding: '20px',
-        marginBottom: '20px',
-        transition: 'transform 0.2s ease',
-        cursor: 'pointer'
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-5px)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = 'translateY(0)'
-      }}>
-      <Link to={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        <h2 style={{ marginTop: 0, marginBottom: '10px' }}>{post.title}</h2>
-        <div style={{ fontSize: '0.8rem', color: theme.palette.text.accent, marginBottom: '10px' }}>
-          {new Date(post.createdAt).toLocaleDateString()} | {post.tags.join(', ')}
+    <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="blog-card">
+        <h2 className="blog-card-title">{post.title}</h2>
+        <div className="blog-card-meta">
+          <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+          {post.tags.length > 0 && (
+            <span>
+              {post.tags.map((tag, index) => (
+                <React.Fragment key={tag}>
+                  {index > 0 && ', '}
+                  {tag}
+                </React.Fragment>
+              ))}
+            </span>
+          )}
         </div>
-        <p style={{ lineHeight: '1.6' }}>{post.excerpt}</p>
-        <div style={{ fontWeight: 'bold', marginTop: '10px' }}>READ MORE &gt;</div>
-      </Link>
-    </div>
+        <p className="blog-card-excerpt">{post.excerpt}</p>
+        <div className="blog-card-link">READ MORE &gt;</div>
+      </div>
+    </Link>
   )
 }
 

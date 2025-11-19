@@ -3,9 +3,9 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import styled from '@emotion/styled'
 import axios from 'axios'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import Button from '../../../components/Button'
-import { useTheme } from '../../../components/ThemeProvider'
-import { useSplitContentDispatch } from '../../../components/SplitContentContext'
+import Button from '@/components/Button'
+import { useTheme } from '@/components/ThemeProvider'
+import { useSplitContentDispatch } from '@/components/SplitContentContext'
 
 type Mnemonic = {
   id: number

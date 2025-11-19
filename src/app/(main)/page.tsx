@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useMemo } from 'react'
-import { useMediaQueryCustom } from '../components/useMediaQueryCustom'
-import { useSplitContentDispatch } from '../components/SplitContentContext'
-import MovingBanner from '../components/MovingBanner'
+import { useMediaQueryCustom } from '@/components/useMediaQueryCustom'
+import { useSplitContentDispatch } from '@/components/SplitContentContext'
+import MovingBanner from '@/components/MovingBanner'
 
 const Home = () => {
   const media = useMediaQueryCustom()

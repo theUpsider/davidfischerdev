@@ -182,7 +182,137 @@ If you encounter crypto-related errors during Docker builds:
 
 ## Features
 
+- **Blog System**: Full-featured blog with admin interface, markdown support, and SEO optimization
+  - Public blog with search, tag filtering, and responsive design
+  - Admin dashboard for creating, editing, and managing posts
+  - Markdown support for rich content formatting
+  - SEO-optimized with metadata, Open Graph tags, and structured data
+  - Standalone layout separate from main portfolio (opens in new context)
+  - JSON-based storage for simplicity and easy migration
 - **Major System Mnemonics Generator**: Tool for generating mnemonic devices using the Major System
 - **Responsive Design**: Works on desktop and mobile devices
 - **Dark/Light Theme**: Theme switching capability
 - **Production Ready**: Environment-specific configuration and Docker support
+
+## Blog Setup
+
+The blog system is fully functional with JSON-based storage and admin authentication.
+
+### Admin Access
+
+1. Create a `.env.local` file in the root directory (copy from `.env.example`):
+
+```bash
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=your-secure-password-here
+```
+
+2. Access the admin interface at `/blog/admin`
+3. Use your credentials to log in
+
+### Blog Features
+
+#### Public Features
+- **Browse Posts**: View all published blog posts at `/blog`
+- **Search**: Real-time search across titles, content, excerpts, and tags
+- **Tag Filtering**: Filter posts by tags at `/blog/tag/{tagname}`
+- **Individual Posts**: Read full posts at `/blog/{slug}`
+- **Responsive Design**: Optimized for all screen sizes
+- **Theme Toggle**: Light/dark mode support
+
+#### Admin Features
+- **Dashboard**: Manage all posts at `/blog/admin/dashboard`
+- **Create Posts**: Write new posts with markdown support at `/blog/admin/editor`
+- **Edit Posts**: Update existing posts at `/blog/admin/editor/{id}`
+- **Publish/Unpublish**: Toggle post visibility
+- **Delete Posts**: Remove posts permanently
+- **Preview**: See how posts will look before publishing
+
+### Blog Data
+
+Blog posts are stored in `data/blog-posts.json`. The file includes:
+- Post metadata (title, slug, excerpt, tags, dates)
+- Full markdown content
+- Author information
+- Publication status
+
+### Creating Blog Posts
+
+1. Log in to the admin interface
+2. Click "Create New Post"
+3. Fill in the required fields:
+   - **Title**: Post title (slug auto-generated)
+   - **Slug**: URL-friendly identifier (editable)
+   - **Excerpt**: Short description for previews
+   - **Content**: Full post content in Markdown
+   - **Tags**: Comma-separated tags
+   - **Author**: Post author name
+   - **Published**: Toggle to publish immediately
+
+#### Markdown Support
+
+The blog supports standard Markdown syntax:
+
+```markdown
+# Heading 1
+## Heading 2
+### Heading 3
+
+**Bold text**
+*Italic text*
+
+[Link text](https://example.com)
+
+- Bullet point
+- Another point
+
+1. Numbered list
+2. Second item
+
+`inline code`
+
+\`\`\`javascript
+// Code block
+const hello = 'world'
+\`\`\`
+
+> Blockquote
+```
+
+### SEO Features
+
+The blog includes comprehensive SEO optimization:
+
+- **Dynamic Sitemap**: Automatically includes all blog posts at `/sitemap.xml`
+- **Robots.txt**: Configured to allow indexing (blocks `/blog/admin/`)
+- **Meta Tags**: Title, description, and keywords for each post
+- **Open Graph**: Social media preview cards
+- **Twitter Cards**: Optimized sharing on Twitter
+- **Structured Data**: JSON-LD schema for search engines
+- **Semantic HTML**: Proper heading hierarchy and structure
+
+### Blog Architecture
+
+The blog uses a standalone layout separate from the main portfolio:
+
+- **Separate Layout**: Blog pages use their own layout (`/blog/layout.tsx`)
+- **Independent Theming**: Blog has its own monochrome theme system
+- **Isolated Navigation**: Blog header with dedicated navigation
+- **Server Actions**: All data operations use Next.js server actions
+- **File-based Storage**: JSON file for easy backup and migration
+
+### Security
+
+- **HTTP-only Cookies**: Session tokens stored securely
+- **Server-side Authentication**: All admin routes protected
+- **Environment Variables**: Credentials stored in `.env` files
+- **Input Validation**: All user inputs validated and sanitized
+
+### Migration to Database (Optional)
+
+The current JSON-based storage works well for personal blogs. To migrate to a database:
+
+1. Install your preferred database client (e.g., Prisma, MongoDB driver)
+2. Update `/src/lib/db.ts` to use database queries instead of file operations
+3. Migrate existing posts from `data/blog-posts.json` to your database
+4. Server actions in `/src/app/actions/blogActions.ts` remain unchanged

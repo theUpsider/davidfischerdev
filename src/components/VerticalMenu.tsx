@@ -24,6 +24,7 @@ export const VerticalMenu = ({
     ['MEDIA', 'INSTAGRAM - TWITTER - FACEBOOK - YOUTUBE'],
     ['CONTACT', 'LINKEDIN - EMAIL - GITHUB - ADDRESS'],
     ['IMPRINT', 'LEGAL NOTICE - PRIVACY POLICY - TERMS OF SERVICE'],
+    ['BLOG', 'ARTICLES - TUTORIALS - THOUGHTS - UPDATES'],
     ['ABOUT', 'WHO AM I? - WHAT DO I DO? - WHAT DO I WANT?'],
     ['PROJECTS', 'GITHUB - WORKS - DEMOS - STUDIES'],
     ['HOME', 'PORTFOLIO - CURRICULUM VITAE - SKILLS']
@@ -79,7 +80,9 @@ export const VerticalMenu = ({
               color: theme.palette.text.primary,
               transform: matches ? 'rotate(0deg)' : 'rotate(-90deg)'
             }}
-            href={`/${item[0].toLowerCase() === 'home' ? '' : item[0].toLowerCase()}`}>
+            href={`/${item[0].toLowerCase() === 'home' ? '' : item[0].toLowerCase()}`}
+            target={item[0].toLowerCase() === 'blog' ? '_blank' : '_self'}
+            rel={item[0].toLowerCase() === 'blog' ? 'noopener noreferrer' : undefined}>
             {matches ? <h1>{item[0]}</h1> : <h3>{item[0]}</h3>}
           </Link>
         </div>

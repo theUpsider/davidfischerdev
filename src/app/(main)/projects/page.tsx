@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { useSplitContentDispatch } from '../../components/SplitContentContext'
+import { useSplitContentDispatch } from '@/components/SplitContentContext'
 
 const Projects = () => {
   const { setUpperContent, setLowerContent } = useSplitContentDispatch()
