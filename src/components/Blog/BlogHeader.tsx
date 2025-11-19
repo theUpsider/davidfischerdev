@@ -3,7 +3,11 @@
 import Link from 'next/link'
 import { useBlogTheme } from '@/components/Blog/BlogThemeProvider'
 
-export function BlogHeader() {
+interface BlogHeaderProps {
+  isAdmin?: boolean
+}
+
+export function BlogHeader({ isAdmin = false }: BlogHeaderProps) {
   const { theme, toggleTheme } = useBlogTheme()
 
   return (
@@ -14,6 +18,7 @@ export function BlogHeader() {
         </Link>
         <nav className="blog-nav">
           <Link href="/blog">Articles</Link>
+          {isAdmin && <Link href="/blog/admin/dashboard">Admin</Link>}
           <a
             href="/"
             target="_blank"

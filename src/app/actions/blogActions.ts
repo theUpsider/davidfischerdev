@@ -150,3 +150,46 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
   const post = posts.find((p) => p.id === id)
   return post || null
 }
+
+// Download all posts as JSON backup (admin only)
+export async function downloadBackup(): Promise<BlogPost[]> {
+  const posts = await readPosts()
+  return posts
+}
+
+// Upload and restore posts from JSON backup (admin only)
+export async function restoreBackup(posts: BlogPost[]): Promise<{ success: boolean; message: string; count: number }> {
+  try {
+    // Validate the backup data
+    if (!Array.isArray(posts)) {
+      throw new Error('Invalid backup format: expected an array')
+    }
+
+    // Validate each post has required fields
+    for (const post of posts) {
+      if (!post.id || !post.title || !post.slug || !post.content) {
+        throw new Error('Invalid post data in backup: missing required fields')
+      }
+    }
+
+    // Write the posts to the database
+    await writePosts(posts)
+
+    // Revalidate all blog pages
+    revalidatePath('/blog')
+    revalidatePath('/blog/admin/dashboard')
+
+    return {
+      success: true,
+      message: `Successfully restored ${posts.length} post(s)`,
+      count: posts.length
+    }
+  } catch (error) {
+    console.error('Error restoring backup:', error)
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : 'Failed to restore backup',
+      count: 0
+    }
+  }
+}

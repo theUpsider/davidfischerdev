@@ -98,13 +98,12 @@ body:has(.blog-container) {
 }
 
 .blog-main {
-  max-width: 80%;
   margin: 0 auto;
   padding: 3rem 2rem;
 }
 
 .blog-content {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -208,7 +207,7 @@ body:has(.blog-container) {
 
 /* Blog Post View */
 .blog-post {
-  max-width: 750px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
