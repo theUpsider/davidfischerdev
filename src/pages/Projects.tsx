@@ -64,7 +64,7 @@ const Projects = () => {
             style={{
               borderTop: '1px solid black'
             }}>
-            <h2>Logic Nodes for Comfy UI (+120 ⭐)</h2>
+            <h2>Logic Nodes for Comfy UI (+200 ⭐)</h2>
             <img
               src="/images/comfylogic.png"
               alt="Logic Nodes for Comfy UI"
