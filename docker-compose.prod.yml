@@ -10,6 +10,8 @@ services:
       - 'nginx'
       - '-g'
       - 'daemon off;'
+    volumes:
+      - blog-data:/app/data
     labels:
       - 'traefik.enable=true'
       - 'traefik.docker.network=traefik_net'
@@ -39,3 +41,7 @@ networks:
   traefik_net:
     name: 'traefik_net'
     external: true
+
+volumes:
+  blog-data:
+    name: davidfischerdev-blog-data
