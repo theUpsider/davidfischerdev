@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { BlogPost } from '@/types/blog'
 import { createPost, updatePost } from '@/app/actions/blogActions'
-import { generateSlug } from '@/lib/db'
+import { generateSlug } from '@/lib/utils'
 
 interface PostEditorClientProps {
   post?: BlogPost
@@ -41,15 +41,18 @@ export function PostEditorClient({ post }: PostEditorClientProps) {
         slug,
         content,
         excerpt,
-        tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
+        tags: tags
+          .split(',')
+          .map((t) => t.trim())
+          .filter(Boolean),
         author,
-        published,
+        published
       }
 
       if (post) {
         await updatePost({
           ...post,
-          ...postData,
+          ...postData
         })
       } else {
         await createPost(postData)
@@ -64,121 +67,110 @@ export function PostEditorClient({ post }: PostEditorClientProps) {
   }
 
   return (
-    <div className="blog-admin-container">
-      <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>
-        {post ? 'Edit Post' : 'Create New Post'}
-      </h1>
+    <div className="blog-admin-container-full">
+      <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>{post ? 'Edit Post' : 'Create New Post'}</h1>
 
-      <form onSubmit={handleSubmit} className="blog-admin-form">
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Title *</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => handleTitleChange(e.target.value)}
-            className="blog-admin-input"
-            required
-          />
-        </div>
-
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Slug *</label>
-          <input
-            type="text"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            className="blog-admin-input"
-            required
-          />
-          <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-            URL: /blog/{slug || 'your-post-slug'}
-          </small>
-        </div>
-
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Excerpt *</label>
-          <textarea
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            className="blog-admin-input"
-            style={{ minHeight: '80px' }}
-            required
-          />
-          <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-            Short description for post preview
-          </small>
-        </div>
-
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Content (Markdown) *</label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="blog-admin-textarea"
-            required
-          />
-          <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-            Supports markdown: # Headers, **bold**, *italic*, `code`, [links](url), etc.
-          </small>
-        </div>
-
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Tags</label>
-          <input
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            className="blog-admin-input"
-            placeholder="tag1, tag2, tag3"
-          />
-          <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>
-            Comma-separated tags
-          </small>
-        </div>
-
-        <div className="blog-admin-field">
-          <label className="blog-admin-label">Author</label>
-          <input
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            className="blog-admin-input"
-          />
-        </div>
-
-        <div className="blog-admin-field">
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+      <form onSubmit={handleSubmit} className="blog-admin-form-grid">
+        <div className="blog-admin-left-column">
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Title *</label>
             <input
-              type="checkbox"
-              checked={published}
-              onChange={(e) => setPublished(e.target.checked)}
-              style={{ width: 'auto' }}
+              type="text"
+              value={title}
+              onChange={(e) => handleTitleChange(e.target.value)}
+              className="blog-admin-input"
+              required
             />
-            <span className="blog-admin-label" style={{ margin: 0 }}>Publish immediately</span>
-          </label>
+          </div>
+
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Excerpt *</label>
+            <textarea
+              value={excerpt}
+              onChange={(e) => setExcerpt(e.target.value)}
+              className="blog-admin-input"
+              style={{ minHeight: '120px', resize: 'vertical' }}
+              required
+            />
+            <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>Short description for post preview</small>
+          </div>
+
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Tags</label>
+            <input
+              type="text"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              className="blog-admin-input"
+              placeholder="tag1, tag2, tag3"
+            />
+            <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>Comma-separated tags</small>
+          </div>
+
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Author</label>
+            <input
+              type="text"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              className="blog-admin-input"
+            />
+          </div>
+
+          <div className="blog-admin-field">
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={published}
+                onChange={(e) => setPublished(e.target.checked)}
+                style={{ width: 'auto' }}
+              />
+              <span className="blog-admin-label" style={{ margin: 0 }}>
+                Publish immediately
+              </span>
+            </label>
+          </div>
+
+          {error && <div style={{ color: 'red', fontSize: '0.9rem' }}>{error}</div>}
+
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <button type="submit" className="blog-admin-button" disabled={loading}>
+              {loading ? 'Saving...' : post ? 'Update Post' : 'Create Post'}
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push('/blog/admin/dashboard')}
+              className="blog-admin-button blog-admin-button-secondary">
+              Cancel
+            </button>
+          </div>
         </div>
 
-        {error && (
-          <div style={{ color: 'red', fontSize: '0.9rem' }}>
-            {error}
+        <div className="blog-admin-right-column">
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Slug *</label>
+            <input
+              type="text"
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              className="blog-admin-input"
+              required
+            />
+            <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>URL: /blog/{slug || 'your-post-slug'}</small>
           </div>
-        )}
 
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <button
-            type="submit"
-            className="blog-admin-button"
-            disabled={loading}
-          >
-            {loading ? 'Saving...' : (post ? 'Update Post' : 'Create Post')}
-          </button>
-          <button
-            type="button"
-            onClick={() => router.push('/blog/admin/dashboard')}
-            className="blog-admin-button blog-admin-button-secondary"
-          >
-            Cancel
-          </button>
+          <div className="blog-admin-field" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <label className="blog-admin-label">Content (Markdown) *</label>
+            <textarea
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="blog-admin-textarea-full"
+              required
+            />
+            <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>
+              Supports markdown: # Headers, **bold**, *italic*, `code`, [links](url), etc.
+            </small>
+          </div>
         </div>
       </form>
     </div>

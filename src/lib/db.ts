@@ -37,18 +37,3 @@ export async function writePosts(posts: BlogPost[]): Promise<void> {
     throw error
   }
 }
-
-// Generate a URL-friendly slug from a title
-export function generateSlug(title: string): string {
-  return title
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, '') // Remove special characters
-    .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
-    .replace(/^-+|-+$/g, '') // Remove leading/trailing hyphens
-}
-
-// Generate a unique ID
-export function generateId(): string {
-  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`
-}

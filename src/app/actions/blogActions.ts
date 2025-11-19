@@ -1,6 +1,7 @@
 'use server'
 
-import { readPosts, writePosts, generateSlug, generateId } from '@/lib/db'
+import { readPosts, writePosts } from '@/lib/db'
+import { generateSlug, generateId } from '@/lib/utils'
 import { BlogPost } from '@/types/blog'
 import { revalidatePath } from 'next/cache'
 
@@ -37,16 +38,16 @@ export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
 export async function searchPosts(query: string): Promise<BlogPost[]> {
   const posts = await readPosts()
   const lowerQuery = query.toLowerCase()
-  
+
   return posts
     .filter((post) => {
       if (!post.published) return false
-      
+
       const titleMatch = post.title.toLowerCase().includes(lowerQuery)
       const contentMatch = post.content.toLowerCase().includes(lowerQuery)
       const excerptMatch = post.excerpt.toLowerCase().includes(lowerQuery)
       const tagsMatch = post.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
-      
+
       return titleMatch || contentMatch || excerptMatch || tagsMatch
     })
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -56,48 +57,46 @@ export async function searchPosts(query: string): Promise<BlogPost[]> {
 export async function getAllTags(): Promise<{ name: string; count: number }[]> {
   const posts = await readPosts()
   const publishedPosts = posts.filter((post) => post.published)
-  
+
   const tagCounts: Record<string, number> = {}
   publishedPosts.forEach((post) => {
     post.tags.forEach((tag) => {
       tagCounts[tag] = (tagCounts[tag] || 0) + 1
     })
   })
-  
+
   return Object.entries(tagCounts)
     .map(([name, count]) => ({ name, count }))
     .sort((a, b) => b.count - a.count)
 }
 
 // Create a new post (admin only)
-export async function createPost(
-  postData: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>
-): Promise<BlogPost> {
+export async function createPost(postData: Omit<BlogPost, 'id' | 'createdAt' | 'updatedAt'>): Promise<BlogPost> {
   const posts = await readPosts()
-  
+
   // Generate slug if not provided
   const slug = postData.slug || generateSlug(postData.title)
-  
+
   // Check if slug already exists
   const existingPost = posts.find((p) => p.slug === slug)
   if (existingPost) {
     throw new Error('A post with this slug already exists')
   }
-  
+
   const newPost: BlogPost = {
     ...postData,
     id: generateId(),
     slug,
     createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
-  
+
   posts.push(newPost)
   await writePosts(posts)
-  
+
   revalidatePath('/blog')
   revalidatePath(`/blog/${slug}`)
-  
+
   return newPost
 }
 
@@ -105,11 +104,11 @@ export async function createPost(
 export async function updatePost(postData: BlogPost): Promise<BlogPost> {
   const posts = await readPosts()
   const index = posts.findIndex((p) => p.id === postData.id)
-  
+
   if (index === -1) {
     throw new Error('Post not found')
   }
-  
+
   // Check if slug is being changed and if it conflicts
   if (posts[index].slug !== postData.slug) {
     const slugExists = posts.some((p) => p.id !== postData.id && p.slug === postData.slug)
@@ -117,18 +116,18 @@ export async function updatePost(postData: BlogPost): Promise<BlogPost> {
       throw new Error('A post with this slug already exists')
     }
   }
-  
+
   const updatedPost: BlogPost = {
     ...postData,
-    updatedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
   }
-  
+
   posts[index] = updatedPost
   await writePosts(posts)
-  
+
   revalidatePath('/blog')
   revalidatePath(`/blog/${updatedPost.slug}`)
-  
+
   return updatedPost
 }
 
@@ -136,11 +135,11 @@ export async function updatePost(postData: BlogPost): Promise<BlogPost> {
 export async function deletePost(id: string): Promise<void> {
   const posts = await readPosts()
   const filteredPosts = posts.filter((p) => p.id !== id)
-  
+
   if (filteredPosts.length === posts.length) {
     throw new Error('Post not found')
   }
-  
+
   await writePosts(filteredPosts)
   revalidatePath('/blog')
 }
