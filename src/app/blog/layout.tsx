@@ -9,6 +9,9 @@ export const metadata = {
   description: 'Thoughts on software engineering, technology, and projects by David Fischer'
 }
 
+// Force dynamic rendering for this layout
+export const dynamic = 'force-dynamic'
+
 export default async function BlogLayout({ children }: { children: React.ReactNode }) {
   const isAdmin = await isAuthenticated()
 
