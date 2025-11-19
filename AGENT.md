@@ -49,9 +49,11 @@
 - There are currently no automated Jest/Vitest suites; rely on lint + manual verification of critical flows (split layout, blog CRUD, major-system calls). Consider adding targeted tests if you introduce complex business logic.
 
 ## Do / Don’t Checklist
+- **Do** Use playwright mcp tool to verify changes to critical flows if breaking changes are made.
 - **Do** respect the `use client` boundary, clean up `useSplitContent` assignments on unmount, and gate admin routes with `requireAuth()`.
 - **Do** keep theme-aware colors in sync with `styles.ts`; derive palette values from there rather than hardcoding.
 - **Do** document new workflows inside README or this file if they change how agents should operate.
+- **Do** Use context7 to query the documentation when uncertain about best practices for a library or framework.
 - **Don’t** remove `src/pages` or `src/services` until the migration plan is explicit. Other tooling (like the Major System generator) still imports pieces from there.
 - **Don’t** introduce `npm install`/`package-lock` churn. Stick to Yarn and touch dependencies intentionally.
 - **Don’t** commit secrets. Example credentials live in env files; rely on Next runtime variables for the real values.
