@@ -1,3 +1,5 @@
+export type ContentTag = 'human-written' | 'ai-edited' | 'ai-generated'
+
 export interface BlogPost {
   id: string
   title: string
@@ -11,6 +13,7 @@ export interface BlogPost {
   published: boolean
   featuredImage?: string // Path to featured image, e.g., '/images/blog/post-1.png'
   featuredImageAlt?: string // Alt text for featured image
+  contentTag?: ContentTag // Indicates how the content was created
 }
 
 export interface BlogTag {

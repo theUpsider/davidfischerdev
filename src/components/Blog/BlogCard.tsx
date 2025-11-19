@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { BlogPost } from '../../types/blog'
+import { ContentTagIcon } from './ContentTagIcon'
 import { calculateReadingTime } from '@/lib/utils'
 
 interface BlogCardProps {
@@ -18,6 +19,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
           <span>{new Date(post.createdAt).toLocaleDateString()}</span>
           <span> • </span>
           <span>{readingTime} min read</span>
+          {post.contentTag && (
+            <>
+              <span> • </span>
+              <ContentTagIcon tag={post.contentTag} />
+            </>
+          )}
           {post.tags.length > 0 && (
             <>
               <span> • </span>

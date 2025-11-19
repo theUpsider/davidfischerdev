@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { BlogPost } from '@/types/blog'
+import { ContentTagIcon } from './ContentTagIcon'
 import { deletePost, updatePost, downloadBackup, restoreBackup } from '@/app/actions/blogActions'
 import { logout } from '@/app/actions/authActions'
 
@@ -152,9 +153,18 @@ export function AdminDashboardClient({ posts: initialPosts }: AdminDashboardClie
             <div key={post.id} className="blog-admin-post-item">
               <div style={{ flex: 1 }}>
                 <h3 style={{ margin: '0 0 0.5rem 0' }}>{post.title}</h3>
-                <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>
-                  {post.published ? '✓ Published' : '✗ Draft'} • {new Date(post.createdAt).toLocaleDateString()} •{' '}
-                  {post.tags.join(', ')}
+                <div
+                  style={{ fontSize: '0.85rem', opacity: 0.7, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span>
+                    {post.published ? '✓ Published' : '✗ Draft'} • {new Date(post.createdAt).toLocaleDateString()} •{' '}
+                    {post.tags.join(', ')}
+                  </span>
+                  {post.contentTag && (
+                    <>
+                      <span>•</span>
+                      <ContentTagIcon tag={post.contentTag} />
+                    </>
+                  )}
                 </div>
               </div>
               <div className="blog-admin-post-actions">

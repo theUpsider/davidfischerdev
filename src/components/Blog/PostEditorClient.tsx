@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { BlogPost } from '@/types/blog'
+import { BlogPost, ContentTag } from '@/types/blog'
 import { createPost, updatePost } from '@/app/actions/blogActions'
 import { generateSlug } from '@/lib/utils'
 import { MarkdownRenderer } from './MarkdownRenderer'
@@ -21,6 +21,7 @@ export function PostEditorClient({ post }: PostEditorClientProps) {
   const [tags, setTags] = useState(post?.tags.join(', ') || '')
   const [author, setAuthor] = useState(post?.author || 'David Fischer')
   const [published, setPublished] = useState(post?.published || false)
+  const [contentTag, setContentTag] = useState<ContentTag | undefined>(post?.contentTag)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [viewMode, setViewMode] = useState<ViewMode>('edit')
@@ -51,7 +52,8 @@ export function PostEditorClient({ post }: PostEditorClientProps) {
           .map((t) => t.trim())
           .filter(Boolean),
         author,
-        published
+        published,
+        contentTag
       }
 
       if (post) {
@@ -188,6 +190,21 @@ export function PostEditorClient({ post }: PostEditorClientProps) {
               onChange={(e) => setAuthor(e.target.value)}
               className="blog-admin-input"
             />
+          </div>
+
+          <div className="blog-admin-field">
+            <label className="blog-admin-label">Content Tag</label>
+            <select
+              value={contentTag || ''}
+              onChange={(e) => setContentTag((e.target.value as ContentTag) || undefined)}
+              className="blog-admin-input"
+              style={{ cursor: 'pointer' }}>
+              <option value="">None</option>
+              <option value="human-written">✍️ Human Written</option>
+              <option value="ai-edited">🤝 AI Edited</option>
+              <option value="ai-generated">🤖 AI Generated</option>
+            </select>
+            <small style={{ fontSize: '0.8rem', opacity: 0.7 }}>Indicates how the content was created</small>
           </div>
 
           <div className="blog-admin-field">

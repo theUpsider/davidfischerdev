@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getPostBySlug, getAllPosts } from '@/app/actions/blogActions'
 import { MarkdownRenderer } from '@/components/Blog/MarkdownRenderer'
+import { ContentTagIcon } from '@/components/Blog/ContentTagIcon'
 import { calculateReadingTime } from '@/lib/utils'
 
 interface BlogPostPageProps {
@@ -158,6 +159,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <span>{post.author}</span>
             <span> • </span>
             <span>{readingTime} min read</span>
+            {post.contentTag && (
+              <>
+                <span> • </span>
+                <ContentTagIcon tag={post.contentTag} />
+              </>
+            )}
           </div>
           {post.tags.length > 0 && (
             <div className="blog-tags">
