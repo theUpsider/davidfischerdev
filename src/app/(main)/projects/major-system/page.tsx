@@ -115,7 +115,7 @@ const MajorSystem = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-  
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { theme } = useTheme()
@@ -133,7 +133,7 @@ const MajorSystem = () => {
   const updateParams = (updates: { [key: string]: string }) => {
     const params = new URLSearchParams(searchParams.toString())
     Object.entries(updates).forEach(([key, value]) => {
-        params.set(key, value)
+      params.set(key, value)
     })
     router.push(pathname + '?' + params.toString())
   }
@@ -333,7 +333,7 @@ const MajorSystem = () => {
   useEffect(() => {
     // Initial fetch if params exist
     if (searchParams.get('number') && searchParams.get('split')) {
-        fetchMnemonics()
+      fetchMnemonics()
     }
   }, []) // Run once on mount
 
