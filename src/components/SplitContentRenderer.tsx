@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+
 import { useTheme } from './ThemeProvider'
 import { useSplitContentState } from './SplitContentContext'
 import MovingBanner from './MovingBanner'
@@ -7,9 +7,10 @@ import MovingBanner from './MovingBanner'
 type SplitContentRendererProps = {
   barPosition: number
   matches: boolean
+  children?: React.ReactNode
 }
 
-export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({ barPosition, matches }) => {
+export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({ barPosition, matches, children }) => {
   const { theme } = useTheme()
   const splitContent = useSplitContentState()
 
@@ -25,10 +26,10 @@ export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({ barP
         overflow: 'auto',
         position: 'relative'
       }}>
-      {/* This Outlet keeps the page components (Home, About, etc.) mounted but is not visible.
+      {/* This div keeps the page components (Home, About, etc.) mounted but is not visible.
           This is the key to fixing the infinite loop. */}
       <div style={{ display: 'none' }}>
-        <Outlet />
+        {children}
       </div>
 
       {/* Upper content area */}
