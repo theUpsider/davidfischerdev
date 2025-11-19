@@ -29,7 +29,6 @@
     'SF Pro Display',
     -apple-system,
     BlinkMacSystemFont,
-    'Inter',
     'Helvetica Neue',
     'Arial',
     sans-serif;
@@ -587,7 +586,7 @@ body:has(.blog-container) {
 .markdown-body .code-block code {
   background: transparent !important;
   padding: 0 !important;
-  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: inherit;
 }
 
@@ -596,7 +595,7 @@ body:has(.blog-container) {
   background-color: var(--blog-bg-secondary);
   padding: 0.2rem 0.5rem;
   border-radius: 3px;
-  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: 0.9em;
   border: 1px solid var(--blog-border);
 }

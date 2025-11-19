@@ -21,7 +21,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
   if (!post) {
     return {
-      title: 'Post Not Found'
+      title: 'Post Not Found',
+      description: 'The requested blog post could not be found.'
     }
   }
 
@@ -29,13 +30,40 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const imageUrl = `https://davidfischer.dev${imagePath}`
   const postUrl = `https://davidfischer.dev/blog/${post.slug}`
 
+  // Generate a meaningful description from excerpt or content
+  let description = post.excerpt?.trim()
+
+  // If excerpt is missing, too short, or placeholder-like, generate from content
+  if (!description || description.length < 50 || description.match(/^[a-z]{1,20}\.?$/i)) {
+    // Extract first paragraph from markdown content, removing markdown syntax
+    const contentWithoutMarkdown = post.content
+      .replace(/^#+ .+$/gm, '') // Remove headers
+      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links but keep text
+      .replace(/[*_~`]/g, '') // Remove formatting
+      .trim()
+
+    const firstParagraph = contentWithoutMarkdown.split('\n\n')[0]
+    description = firstParagraph.substring(0, 160).trim()
+
+    // Add ellipsis if truncated
+    if (firstParagraph.length > 160) {
+      description += '...'
+    }
+  }
+
+  // Ensure description is not empty and has reasonable length
+  if (!description) {
+    description = `Read ${post.title} by ${post.author} on David Fischer's blog.`
+  }
+
   return {
     title: `${post.title}`,
-    description: post.excerpt,
+    description: description,
     authors: [{ name: post.author }],
+    keywords: post.tags,
     openGraph: {
       title: post.title,
-      description: post.excerpt,
+      description: description,
       type: 'article',
       publishedTime: post.createdAt,
       modifiedTime: post.updatedAt,
@@ -55,13 +83,19 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt,
+      description: description,
       images: [imageUrl],
       site: '@theUpsider',
       creator: '@theUpsider'
     },
     alternates: {
       canonical: postUrl
+    },
+    robots: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1
     }
   }
 }

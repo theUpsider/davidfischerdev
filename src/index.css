@@ -26,8 +26,14 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden; /*  Optional: if you want to disable scroll */
-  font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 
-    'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+  font-family:
+    'Segoe UI',
+    'SF Pro Display',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Helvetica Neue',
+    'Arial',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -5,7 +5,7 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import rehypeSanitize from 'rehype-sanitize'
 import Image from 'next/image'
-import 'highlight.js/styles/github-dark.css'
+import '../../app/blog/highlight-custom.css'
 
 interface MarkdownRendererProps {
   content: string
