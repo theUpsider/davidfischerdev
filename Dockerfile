@@ -1,46 +1,53 @@
-# build environment - using standard node image instead of alpine
-FROM node:18-slim AS build
-
-# Install necessary packages for building
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+# Build stage
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Set environment for better compatibility
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-ENV PATH /app/node_modules/.bin:$PATH
-
-# Copy package files first for better layer caching
+# Copy package files
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci --only=production=false && npm cache clean --force
+RUN npm ci
 
 # Copy source code
-COPY . ./
+COPY . .
 
-# Set build arguments and environment
-ARG NODE_ENV=production
-ARG VITE_API_BASE_URL=https://api.davidfischer.dev
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
-ENV NODE_ENV=$NODE_ENV
+# Set build environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Debug: Print the environment variable to verify it's set
-RUN echo "Building with VITE_API_BASE_URL: $VITE_API_BASE_URL"
+# Build Next.js application (standalone mode)
+RUN npm run build
 
-# Build the application
-RUN npm run build-prod
+# Production stage
+FROM node:18-alpine AS runner
 
-# production environment
-FROM nginx:stable-alpine
-# Install curl for health checks
-RUN apk add --no-cache curl
-# Overrite the config file. Fixes for react router by directing all requests to index.html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
-RUN mkdir /usr/share/nginx/html/config
-COPY --from=build /app/public /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app
+
+# Set production environment
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
+# Copy standalone output from builder
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+
+# Create data directory for blog posts
+RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
+
+# Switch to non-root user
+USER nextjs
+
+# Expose port 3000
+EXPOSE 3000
+
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+# Start the Next.js server
+CMD ["node", "server.js"]

@@ -33,16 +33,17 @@ jobs:
       - name: Run tests (if any)
         run: npm test --if-present
 
-      - name: Build for production
-        run: npm run build-prod
+      - name: Build Next.js application
+        run: npm run build
         env:
-          VITE_API_BASE_URL: https://api.davidfischer.dev
-          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: 1
 
       - name: Verify build output
         run: |
-          ls -la dist/
-          echo "Build completed successfully"
+          ls -la .next/standalone/
+          ls -la .next/static/
+          echo "Next.js build completed successfully"
 
       - name: Log in to Container Registry
         if: github.event_name != 'pull_request'
@@ -71,6 +72,3 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            VITE_API_BASE_URL=https://api.davidfischer.dev
-            NODE_ENV=production
