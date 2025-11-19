@@ -2,15 +2,26 @@ version: '3.8'
 
 services:
   frontend:
-    image: ghcr.io/theUpsider/davidfischerdev:latest
-    ports:
-      - "80:80"
+    image: ghcr.io/theupsider/davidfischerdev:latest
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - stack.env
+    command:
+      - "nginx"
+      - "-g"
+      - "daemon off;"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_net"
+      - "traefik.http.routers.davidfischerdev.tls=true"
+      - "traefik.http.routers.davidfischerdev.rule=Host(`davidfischer.dev`) || Host(`www.davidfischer.dev`)"
+      - "traefik.http.routers.davidfischerdev.entrypoints=https"
+      - "traefik.http.routers.davidfischerdev.tls.certresolver=simpleresolver"
+      - "traefik.http.services.davidfischerdev.loadbalancer.server.port=80"
+    networks:
+      - traefik_net
+
+networks:
+  traefik_net:
+    name: "traefik_net"
+    external: true
