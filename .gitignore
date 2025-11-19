@@ -41,3 +41,5 @@ next-env.d.ts
 # Docker
 .dockerignore
 data/blog-posts.json
+
+.env*
