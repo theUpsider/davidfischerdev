@@ -719,7 +719,7 @@ body:has(.blog-container) {
 }
 
 /* Code blocks scrollbar styling */
-/* Light mode: dark background scrollbar (light thumb on dark track) */
+/* Default/Light mode: dark background scrollbar (light thumb on dark track) */
 .markdown-body pre::-webkit-scrollbar {
   height: 8px;
 }
@@ -731,14 +731,6 @@ body:has(.blog-container) {
 .markdown-body pre::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-}
-
-[data-theme='light'] .markdown-body pre::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme='light'] .markdown-body pre::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Dark mode: light background scrollbar (dark thumb on light track) */
