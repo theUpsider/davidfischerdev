@@ -567,9 +567,10 @@ body:has(.blog-container) {
 }
 
 /* Code blocks with syntax highlighting */
+/* Light mode: dark background with light text */
 .markdown-body .code-block {
-  background-color: #1e1e1e !important;
-  border: 1px solid var(--blog-border);
+  background-color: #0d1117 !important;
+  border: 1px solid #30363d;
   border-radius: 4px;
   padding: 1.5rem !important;
   overflow-x: auto;
@@ -578,9 +579,10 @@ body:has(.blog-container) {
   line-height: 1.6;
 }
 
+/* Dark mode: light background with dark text */
 [data-theme='dark'] .markdown-body .code-block {
-  background-color: #0d0d0d !important;
-  border-color: #333;
+  background-color: #f6f8fa !important;
+  border-color: #d0d7de;
 }
 
 .markdown-body .code-block code {
@@ -708,12 +710,13 @@ body:has(.blog-container) {
 }
 
 /* Code blocks scrollbar styling */
+/* Light mode: dark background scrollbar (light thumb on dark track) */
 .markdown-body pre::-webkit-scrollbar {
   height: 8px;
 }
 
 .markdown-body pre::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .markdown-body pre::-webkit-scrollbar-thumb {
@@ -721,12 +724,13 @@ body:has(.blog-container) {
   border-radius: 4px;
 }
 
+/* Dark mode: light background scrollbar (dark thumb on light track) */
 [data-theme='dark'] .markdown-body pre::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='dark'] .markdown-body pre::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Editor Enhancements */
