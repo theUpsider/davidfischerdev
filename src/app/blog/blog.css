@@ -577,12 +577,20 @@ body:has(.blog-container) {
   margin: 1.5rem 0;
   font-size: 0.9rem;
   line-height: 1.6;
+  color: #c9d1d9;
+}
+
+[data-theme='light'] .markdown-body .code-block {
+  background-color: #0d1117 !important;
+  border-color: #30363d;
+  color: #c9d1d9;
 }
 
 /* Dark mode: light background with dark text */
 [data-theme='dark'] .markdown-body .code-block {
   background-color: #f6f8fa !important;
   border-color: #d0d7de;
+  color: #24292e;
 }
 
 .markdown-body .code-block code {
@@ -590,6 +598,7 @@ body:has(.blog-container) {
   padding: 0 !important;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: inherit;
+  color: inherit;
 }
 
 /* Inline code */
@@ -722,6 +731,14 @@ body:has(.blog-container) {
 .markdown-body pre::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.3);
   border-radius: 4px;
+}
+
+[data-theme='light'] .markdown-body pre::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] .markdown-body pre::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Dark mode: light background scrollbar (dark thumb on light track) */
