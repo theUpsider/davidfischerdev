@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import { ThemeProvider, useTheme } from './ThemeProvider'
-import { lightTheme } from '../styles'
+import { darkTheme, lightTheme } from '../styles'
 import { SplitContentProvider } from './SplitContentContext'
 import { SplitContentRenderer } from './SplitContentRenderer'
 import { useMediaQueryCustom } from './useMediaQueryCustom'
@@ -17,10 +17,20 @@ const AppContent = ({ children }: { children: React.ReactNode }) => {
   const [barPosition, setBarPosition] = React.useState(0)
   const matches = useMediaQueryCustom()
 
-  // get theme from local storage
+  // Initialize theme from localStorage (priority) or system preference (fallback)
   React.useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem('theme') === 'light') {
-      setTheme(lightTheme)
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme')
+      
+      if (storedTheme === 'dark') {
+        setTheme(darkTheme)
+      } else if (storedTheme === 'light') {
+        setTheme(lightTheme)
+      } else {
+        // No user preference in localStorage - detect system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        setTheme(prefersDark ? darkTheme : lightTheme)
+      }
     }
   }, [setTheme])
 
