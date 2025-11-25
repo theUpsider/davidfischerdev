@@ -17,6 +17,7 @@
     "docker:compose:up-ghcr": "docker-compose -f docker-compose.prod.yml up"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.11.5",
     "axios": "^1.7.2",
     "eslint-config-next": "^16.0.3",
