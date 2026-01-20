@@ -22,7 +22,7 @@
     "@emotion/styled": "^11.11.5",
     "axios": "^1.7.2",
     "eslint-config-next": "^16.0.3",
-    "next": "^16.0.9",
+    "next": "^16.0.10",
     "normalize.css": "^8.0.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
