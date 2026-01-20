@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "echo \"No tests configured\" && exit 0",
     "docker:build": "docker build -t davidfischerdev-frontend .",
     "docker:run": "docker run -p 3000:3000 davidfischerdev-frontend",
     "docker:pull": "docker pull ghcr.io/theUpsider/davidfischerdev:latest",
