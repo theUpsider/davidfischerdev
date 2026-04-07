@@ -23,7 +23,7 @@ services:
       - 'traefik.http.middlewares.login-ratelimit.ratelimit.burst=10'
 
       # Router specifically for login/admin paths with rate limiting
-      - 'traefik.http.routers.davidfischerdev-login.rule=Host(`davidfischer.dev`,`www.davidfischer.dev`) && (PathPrefix(`/blog/admin`) || PathPrefix(`/api/auth`))'
+      - 'traefik.http.routers.davidfischerdev-login.rule=(Host(`davidfischer.dev`) || Host(`www.davidfischer.dev`)) && (PathPrefix(`/blog/admin`) || PathPrefix(`/api/auth`))'
       - 'traefik.http.routers.davidfischerdev-login.entrypoints=https'
       - 'traefik.http.routers.davidfischerdev-login.tls=true'
       - 'traefik.http.routers.davidfischerdev-login.tls.certresolver=simpleresolver'
