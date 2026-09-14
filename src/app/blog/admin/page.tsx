@@ -23,7 +23,7 @@ export default function AdminLoginPage() {
       } else {
         setError(result.error || 'Login failed')
       }
-    } catch (err) {
+    } catch {
       setError('An error occurred')
     } finally {
       setLoading(false)

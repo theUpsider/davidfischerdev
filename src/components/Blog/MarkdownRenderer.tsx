@@ -19,11 +19,11 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         rehypePlugins={[rehypeHighlight, rehypeSanitize]}
         components={{
           // Open links in new tab
-          a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
+          a: ({ ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
           // Add custom styling hooks for code blocks
-          pre: ({ node, ...props }) => <pre className="code-block" {...props} />,
+          pre: ({ ...props }) => <pre className="code-block" {...props} />,
           // Add custom styling for inline code
-          code: ({ node, className, children, ...props }) => {
+          code: ({ className, children, ...props }) => {
             const isInline = !className
             return (
               <code className={isInline ? 'inline-code' : className} {...props}>

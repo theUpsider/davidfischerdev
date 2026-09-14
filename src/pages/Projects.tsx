@@ -55,7 +55,7 @@ const Projects = () => {
               The research shows comparable performance on public datasets, even outperforming GPT-4 on the SemEval 2013
               Task 7. This mono repository includes a server, a React PWA frontend, and a shared library package.
             </p>
-            <p>The evaluation won the Best Paper Award at ECSEE '25.</p>
+            <p>The evaluation won the Best Paper Award at ECSEE &apos;25.</p>
             <a href="https://github.com/HASKI-RAK/NodeGrade/">GitHub Repository</a>
             <br />
             <a href="https://dl.acm.org/doi/10.1145/3723010.3723021">Research Paper</a>
@@ -125,15 +125,14 @@ const Projects = () => {
             style={{
               borderTop: '1px solid black'
             }}>
-            <h2>Raytracer in Vulkan</h2>
+            <h2>rtxON</h2>
             <img
               src="https://www.hs-kempten.de/fileadmin/_processed_/3/e/csm_19-vulkanraytracing2_6206dc0e8f.jpg"
-              alt="Raytracer in Vulkan"
+              alt="rtxON Vulkan ray-tracing renderer"
               style={{ width: '20%' }}
             />
             <p>
-              One of the first working implementations of a raytracer in Vulkan. The project was tackled during the
-              early times of raytracing. (RTX 2070 was the best card out there haha)
+              rtxON was a DV project at HS Kempten and one of the early ray-tracing renderers built with Vulkan.
             </p>
             <a href="https://www.hs-kempten.de/fakultaet-informatik/aktuelles/artikel/raytracing-mit-vulkan-auf-nividia-rtx-1339">
               More information
@@ -198,7 +197,7 @@ const Projects = () => {
               <strong>Master Thesis:</strong> Python, PyTorch
             </li>
             <li>
-              <strong>Raytracer in Vulkan:</strong> C++, Vulkan
+              <strong>rtxON:</strong> C++, GLSL/Vulkan
             </li>
             <li>
               <strong>Rooting for him:</strong> C#, Unity

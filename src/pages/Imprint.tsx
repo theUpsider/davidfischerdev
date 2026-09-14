@@ -18,7 +18,7 @@ const Imprint = () => {
         <section>
           <h2>Introduction</h2>
           <p>
-            Welcome to David Fischer's personal portfolio website. As a software engineer and an all-around solution
+            Welcome to David Fischer&apos;s personal portfolio website. As a software engineer and an all-around solution
             finder, this website aims to showcase my professional background, interests in deep learning, game
             engineering, data science, and my work in the field of AI and Machine Learning at the University of Applied
             Sciences Kempten.
@@ -33,7 +33,7 @@ const Imprint = () => {
           <h2>Purpose of the Website</h2>
           <p>
             The website serves to present myself, David Fischer, to peers and individuals interested in my research or
-            considering me for employment opportunities. It's a platform to highlight my academic and professional
+            considering me for employment opportunities. It&apos;s a platform to highlight my academic and professional
             achievements, my passions, and to facilitate connections within the professional community.
           </p>
         </section>
