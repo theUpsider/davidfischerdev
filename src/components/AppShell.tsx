@@ -63,7 +63,7 @@ const AppContent = ({ children }: { children: React.ReactNode }) => {
           }}>
           {matches ? (
             <>
-              <h1>DAVID FISCHER 2025</h1>
+              <h1>DAVID FISCHER {new Date().getFullYear()}</h1>
               <h3>Software Engineer</h3>
               {/*WEBSITE UNDER CONSTRUCTION */}
               {/* <h3>Website Under Construction</h3> */}

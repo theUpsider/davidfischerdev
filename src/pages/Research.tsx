@@ -11,6 +11,8 @@ const Research = () => {
         style={{
           overflow: 'scroll',
           height: '100%',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           transition: 'all 0.5s ease'
         }}>
         <h1>Research</h1>
@@ -75,7 +77,7 @@ const Research = () => {
 
   const lowerContent = useMemo(
     () => (
-      <div style={{ padding: '20px 0' }}>
+      <div style={{ padding: '20px 1.5rem' }}>
         <h2>Research Fields</h2>
         <div
           style={{

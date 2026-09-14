@@ -12,6 +12,8 @@ const About = () => {
         style={{
           overflow: 'scroll',
           height: '100%',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           transition: 'all 0.5s ease'
         }}>
         <h1>ABOUT //</h1>
@@ -57,7 +59,7 @@ const About = () => {
     )
 
     const lowerContent = (
-      <div style={{ padding: '20px 0' }}>
+      <div style={{ padding: '20px 1.5rem' }}>
         <h2>My Areas of Expertise</h2>
 
         <div
