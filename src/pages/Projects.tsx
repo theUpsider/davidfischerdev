@@ -11,6 +11,8 @@ const Projects = () => {
         style={{
           overflow: 'scroll',
           height: '100%',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           transition: 'all 0.5s ease'
         }}>
         <h1>Projects</h1>
@@ -37,7 +39,7 @@ const Projects = () => {
             }}>
             <h2>NodeGrade - Automatic Short Answer Grading Tool</h2>
             <img
-              src="https://github.com/HASKI-RAK/NodeGrade/blob/main/.github/thumbnail.png?raw=true"
+              src="/images/nodegrade-thumbnail.png"
               alt="NodeGrade - Node-based automatic short answer grading"
               style={{
                 border: '1px solid black',
@@ -159,7 +161,7 @@ const Projects = () => {
             }}>
             <h2>rtxON</h2>
             <img
-              src="https://www.hs-kempten.de/fileadmin/_processed_/3/e/csm_19-vulkanraytracing2_6206dc0e8f.jpg"
+              src="/images/rtxon-vulkan-raytracing.jpg"
               alt="rtxON Vulkan ray-tracing renderer"
               style={{ width: '20%' }}
             />
@@ -173,11 +175,6 @@ const Projects = () => {
               borderTop: '1px solid black'
             }}>
             <h2>Rooting for him - Global Game Jam 2023</h2>
-            <img
-              src="https://ggj.s3.amazonaws.com/styles/game_content__wide/games/screenshots/2023/02/767323/ingamescreenshot.png?itok=YsOCq58L&timestamp=1675601761"
-              alt="Rooting for him"
-              style={{ width: '20%' }}
-            />
             <p>In one weekend, a randomly scrambled team of 6 people set out to create a fun endless runner game.</p>
             <a href="https://v3.globalgamejam.org/2023/games/rooting-him-3">More information</a>
           </div>
@@ -198,7 +195,7 @@ const Projects = () => {
 
   const lowerContent = useMemo(
     () => (
-      <div style={{ padding: '20px 0' }}>
+      <div style={{ padding: '20px 1.5rem' }}>
         <h2>Project Details & Tech Stacks</h2>
         <p>Here you can find more information about the technologies used in my projects.</p>
         <div
