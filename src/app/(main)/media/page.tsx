@@ -7,11 +7,11 @@ export const dynamic = 'force-dynamic'
 export const metadata: Metadata = {
   title: 'Media',
   description:
-    'Connect with David Fischer across social media platforms. Follow for tech tutorials, project updates, development insights, and behind-the-scenes content on YouTube, Instagram, Twitter, and Facebook.',
-  keywords: ['Social Media', 'YouTube', 'Instagram', 'Twitter', 'Facebook', 'Tech Content', 'Developer Content'],
+    'Tutorials, project deep-dives, awards and press coverage from David Fischer\u2019s work: Stable Diffusion and game engine devlogs on YouTube, ECSEE 2025 Best Paper, gamespreis-decorated VR projects.',
+  keywords: ['YouTube', 'Stable Diffusion', 'Game Engine', 'Vulkan', 'NodeGrade', 'Best Paper Award', 'VR Subway Simulator'],
   openGraph: {
     title: 'Media | David Fischer',
-    description: 'Connect with me on YouTube, Instagram, Twitter, and Facebook for tech tutorials and project updates',
+    description: 'Tutorials, project deep-dives, awards and press coverage',
     url: 'https://davidfischer.dev/media',
     siteName: 'David Fischer',
     images: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         url: '/images/og/default.svg',
         width: 1200,
         height: 630,
-        alt: 'David Fischer Social Media'
+        alt: 'David Fischer Media'
       }
     ],
     locale: 'en_US',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Media | David Fischer',
-    description: 'Connect on social media for tech tutorials and project updates',
+    description: 'Tutorials, project deep-dives, awards and press coverage',
     images: ['/images/og/default.svg'],
     site: '@theUpsider',
     creator: '@theUpsider'

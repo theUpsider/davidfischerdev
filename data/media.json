@@ -1,0 +1,32 @@
+{
+  "videos": [
+    {
+      "youtubeId": "Xn-WTIU4vv4",
+      "title": "How to use Stable Diffusion to make AMAZING AI Art!",
+      "thumbnail": "/images/media/sd-tutorial.jpg",
+      "featured": true,
+      "summary": "A hands-on guide to creating high quality AI art with Stable Diffusion: models, prompts and the settings that actually matter."
+    },
+    {
+      "youtubeId": "gYododp7xKA",
+      "title": "Game Engine Development (Vulkan, C++) - Update #3 (Material, Models)",
+      "thumbnail": "/images/media/engine-update-3.jpg",
+      "featured": false,
+      "summary": "Devlog clip: material system and model loading in my self-written Vulkan/C++ game engine."
+    },
+    {
+      "youtubeId": "Mq6mxleYRpo",
+      "title": "Game Engine Development (Vulkan, C++) - Update #2 (Shading, Physics)",
+      "thumbnail": "/images/media/engine-update-2.jpg",
+      "featured": false,
+      "summary": "Devlog clip: shading pipeline and physics experiments in the engine project."
+    },
+    {
+      "youtubeId": "i4RF1Lu3reM",
+      "title": "Game Engine Development (Vulkan, C++) - Update #1",
+      "thumbnail": "/images/media/engine-update-1.jpg",
+      "featured": false,
+      "summary": "Devlog clip: first milestone of the Vulkan/C++ engine — the basics that everything else built on."
+    }
+  ]
+}
