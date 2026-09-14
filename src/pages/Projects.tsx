@@ -64,7 +64,20 @@ const Projects = () => {
             style={{
               borderTop: '1px solid black'
             }}>
-            <h2>Logic Nodes for Comfy UI (+200 ⭐)</h2>
+            <h2>Rotaris — Agentic Coding Control Plane</h2>
+            <p>
+              Rotaris is an agentic harness for coding agents, built with Philipp Geirhos at Concrete Dynamics. It is
+              open source and was presented at gamescom dev 2026.
+            </p>
+            <a href="https://rotaris.ai">Rotaris</a>
+            <br />
+            <a href="https://github.com/theUpsider/Rotaris">GitHub Repository</a>
+          </div>
+          <div
+            style={{
+              borderTop: '1px solid black'
+            }}>
+            <h2>Logic Nodes for Comfy UI (+230 ⭐)</h2>
             <img
               src="/images/comfylogic.png"
               alt="Logic Nodes for Comfy UI"
@@ -79,6 +92,25 @@ const Projects = () => {
               The extension also includes a debugging feature that prints inputs to the console.
             </p>
             <a href="https://github.com/theUpsider/ComfyUI-Logic/">More information</a>
+          </div>
+          <div
+            style={{
+              borderTop: '1px solid black'
+            }}>
+            <h2>ComfyUI Styles CSV Loader (+75 ⭐)</h2>
+            <p>An extension to load styles from CSV, with a migration helper for AUTOMATIC1111.</p>
+            <a href="https://github.com/theUpsider/ComfyUI-Styles_CSV_Loader">GitHub Repository</a>
+          </div>
+          <div
+            style={{
+              borderTop: '1px solid black'
+            }}>
+            <h2>lsp-mcp</h2>
+            <p>
+              An MCP server that gives language models access to Language Server Protocol functionality across major
+              languages.
+            </p>
+            <a href="https://github.com/theUpsider/lsp-mcp">GitHub Repository</a>
           </div>
           <div
             style={{
@@ -131,9 +163,7 @@ const Projects = () => {
               alt="rtxON Vulkan ray-tracing renderer"
               style={{ width: '20%' }}
             />
-            <p>
-              rtxON was a DV project at HS Kempten and one of the early ray-tracing renderers built with Vulkan.
-            </p>
+            <p>rtxON was a DV project at HS Kempten and one of the early ray-tracing renderers built with Vulkan.</p>
             <a href="https://www.hs-kempten.de/fakultaet-informatik/aktuelles/artikel/raytracing-mit-vulkan-auf-nividia-rtx-1339">
               More information
             </a>
@@ -160,13 +190,6 @@ const Projects = () => {
             <p>Written in React, Typescript, and a bit of CSS. Webdev became a part of me.</p>
           </div>
 
-          <div
-            style={{
-              borderTop: '1px solid black'
-            }}>
-            <h2>More projects will be displayed soon ...</h2>
-            <p>Stay tuned!</p>
-          </div>
         </div>
       </div>
     ),
@@ -187,6 +210,15 @@ const Projects = () => {
           }}>
           <h3>Tech Stacks:</h3>
           <ul>
+            <li>
+              <strong>Rotaris:</strong> TypeScript, Python
+            </li>
+            <li>
+              <strong>ComfyUI Styles CSV Loader:</strong> Python
+            </li>
+            <li>
+              <strong>lsp-mcp:</strong> TypeScript
+            </li>
             <li>
               <strong>ComfyUI-Logic:</strong> Python, JavaScript
             </li>

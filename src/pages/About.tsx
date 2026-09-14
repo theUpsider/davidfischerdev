@@ -17,8 +17,8 @@ const About = () => {
         <h1>ABOUT //</h1>
         <section>
           <p>
-            Hello! I&apos;m David Fischer, a software engineer. I studied Computer Science at HAW Kempten and graduated with
-            a Master&apos;s degree. My work covers deep learning, game engineering, and data science.
+            Hello! I&apos;m David Fischer, a software engineer. I studied Computer Science at HAW Kempten and graduated
+            with a Master&apos;s degree. My work covers deep learning, game engineering, and data science.
           </p>
           <img
             src={'/images/DavidFischer.webp'}
@@ -31,8 +31,12 @@ const About = () => {
           />
           <p>
             I have been working as a Research Assistant at HAW Kempten since 2022-03-01. My fixed-term contract runs
-            until 2029-02-28. I work on AI and machine-learning projects and enjoy building useful software with
-            other people.
+            until 2029-02-28. I work on AI and machine-learning projects and enjoy building useful software with other
+            people.
+          </p>
+          <p>
+            Since 2025, I have run Concrete Dynamics, a software company founded with Philipp Geirhos, and teach 3D
+            engine programming at the Games Academy.
           </p>
           <div
             style={{
@@ -43,7 +47,7 @@ const About = () => {
             }}>
             <Button
               onClick={() => {
-                window.open('https://davidfischer.dev//CVDavidFischer.pdf', '_blank')
+                window.open('https://davidfischer.dev/CVDavidFischer.pdf', '_blank')
               }}>
               Download my CV
             </Button>
