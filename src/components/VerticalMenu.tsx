@@ -95,7 +95,7 @@ export const VerticalMenu = ({
               fontWeight: 'bold',
               transform: matches ? 'rotate(0deg)' : 'rotate(-90deg)'
             }}>
-            © David Fischer 2025
+            © David Fischer {new Date().getFullYear()}
           </p>
         </div>
       )}
