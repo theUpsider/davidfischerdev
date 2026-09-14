@@ -45,6 +45,7 @@ const Research = () => {
               Development of a Short Form of the Index of Learning Styles for the Use in Adaptive Learning Systems
             </h2>
             <p>ECSEE 2023. Haug, Fischer, Hagel.</p>
+            <a href="https://doi.org/10.1145/3593663.3593675">ACM Digital Library</a>
           </div>
           <div
             style={{
