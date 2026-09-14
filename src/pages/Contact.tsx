@@ -38,7 +38,7 @@ const Contact = () => {
     () => (
       <div style={{ padding: '20px 0' }}>
         <h2>📬 Get In Touch</h2>
-        <p>I'm always interested in new opportunities and connections!</p>
+        <p>I&apos;m always interested in new opportunities and connections!</p>
 
         <div
           style={{
@@ -65,7 +65,7 @@ const Contact = () => {
         </div>
 
         <div style={{ marginTop: '20px' }}>
-          <h3>What I'm looking for:</h3>
+          <h3>What I&apos;m looking for:</h3>
           <p>✨ Exciting projects in AI/ML, game development, or web technologies</p>
           <p>🤝 Collaboration opportunities with other developers</p>
           <p>💡 Interesting research partnerships</p>

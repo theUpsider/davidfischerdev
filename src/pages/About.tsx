@@ -17,9 +17,8 @@ const About = () => {
         <h1>ABOUT //</h1>
         <section>
           <p>
-            Hello! I'm David Fischer, a software engineer, and allround solution finder. I studied at the University of
-            Applied Sciences Kempten (Germany) and graduated with a Master's degree in Computer Science. Deep learning,
-            game engineering, and data science are my passions.
+            Hello! I&apos;m David Fischer, a software engineer. I studied Computer Science at HAW Kempten and graduated with
+            a Master&apos;s degree. My work covers deep learning, game engineering, and data science.
           </p>
           <img
             src={'/images/DavidFischer.webp'}
@@ -31,8 +30,9 @@ const About = () => {
             }}
           />
           <p>
-            I'm currently working at the University of Applied Sciences Kempten in the field of AI and Machine Learning.
-            Besides my work in the office chair, I'm also interested in building connections between people.
+            I have been working as a Research Assistant at HAW Kempten since 2022-03-01. My fixed-term contract runs
+            until 2029-02-28. I work on AI and machine-learning projects and enjoy building useful software with
+            other people.
           </p>
           <div
             style={{
@@ -45,7 +45,7 @@ const About = () => {
               onClick={() => {
                 window.open('https://davidfischer.dev//CVDavidFischer.pdf', '_blank')
               }}>
-              Download my (outdated but soon to be updated) CV
+              Download my CV
             </Button>
           </div>
         </section>
@@ -69,10 +69,28 @@ const About = () => {
               border: '1px solid #484a4d',
               borderRadius: '4px'
             }}>
+            <h3>💻 Programming languages</h3>
+            <ul>
+              <li>Python</li>
+              <li>TypeScript/JavaScript</li>
+              <li>C#</li>
+              <li>C++</li>
+              <li>GLSL/Vulkan</li>
+              <li>LaTeX</li>
+              <li>Shell</li>
+            </ul>
+          </div>
+
+          <div
+            style={{
+              padding: '1rem',
+              border: '1px solid #484a4d',
+              borderRadius: '4px'
+            }}>
             <h3>🔬 Research</h3>
             <p>
-              For my research and in my spare time, I love to dig into bleeding edge technologies. It is a truly amazing
-              time we live in. That is why I can not stop getting my hands on the newset tech and trends.
+              I work with current research topics and turn ideas into working prototypes. Outside of work, I keep
+              exploring new tools and technologies.
             </p>
           </div>
 
@@ -84,10 +102,8 @@ const About = () => {
             }}>
             <h3>⚙️ Engineering</h3>
             <p>
-              Finding solutions to problems and realizing them is a passion of mine. I love to wrap my head around
-              difficult tasks, then coming up with a solid way to solve them. Planning the schedule, designing the
-              architecture and implementing the very most bottom classes is what I like to do and where my skillset
-              really shines.
+              I like breaking down difficult problems, designing a solid approach, and implementing it from the
+              architecture to the details.
             </p>
           </div>
 
@@ -99,9 +115,8 @@ const About = () => {
             }}>
             <h3>🎨 Design</h3>
             <p>
-              Creativity - Whether it's a complicated problem, or a matter of design, I always like to put new
-              perspectives on a task at hand. My skills include 3D Art, Game Design, a (little) bit of Photoshop, as
-              well as music composition.
+              I also enjoy the creative side of software: 3D art, game design, a little Photoshop, and music
+              composition.
             </p>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import Button from '../components/Button'
 import { useTheme } from '../components/ThemeProvider'
 import { useSplitContentDispatch } from '../components/SplitContentContext'
+import type { DefaultTheme } from '../styles'
 
 type Mnemonic = {
   id: number
@@ -58,7 +59,7 @@ const Th = styled.th`
   text-align: center;
 `
 
-const ErrorMessage = styled.div<{ theme: any }>`
+const ErrorMessage = styled.div<{ theme: DefaultTheme['palette']['type'] }>`
   background-color: ${(props) => (props.theme === 'dark' ? '#3c1518' : '#f8d7da')};
   color: ${(props) => (props.theme === 'dark' ? '#f5c2c7' : '#721c24')};
   border: 1px solid ${(props) => (props.theme === 'dark' ? '#842029' : '#f5c2c7')};
@@ -300,7 +301,7 @@ const MajorSystem = () => {
           <ol>
             <li>Enter a number in the input field above</li>
             <li>Enter a split length. If the word is 4 letters, 4 split length will query for the whole word.</li>
-            <li>Click the "Generate Mnemonics" button</li>
+            <li>Click the &quot;Generate Mnemonics&quot; button</li>
             <li>View the generated mnemonics below</li>
           </ol>
         </div>

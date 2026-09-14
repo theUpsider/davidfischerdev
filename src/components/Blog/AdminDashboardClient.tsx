@@ -26,7 +26,7 @@ export function AdminDashboardClient({ posts: initialPosts }: AdminDashboardClie
     try {
       await deletePost(id)
       setPosts(posts.filter((p) => p.id !== id))
-    } catch (error) {
+    } catch {
       alert('Failed to delete post')
     }
   }
@@ -38,7 +38,7 @@ export function AdminDashboardClient({ posts: initialPosts }: AdminDashboardClie
         published: !post.published
       })
       setPosts(posts.map((p) => (p.id === updatedPost.id ? updatedPost : p)))
-    } catch (error) {
+    } catch {
       alert('Failed to update post')
     }
   }
@@ -64,7 +64,7 @@ export function AdminDashboardClient({ posts: initialPosts }: AdminDashboardClie
       URL.revokeObjectURL(url)
 
       alert(`Successfully downloaded backup of ${backup.length} post(s)`)
-    } catch (error) {
+    } catch {
       alert('Failed to download backup')
     }
   }
@@ -101,7 +101,7 @@ export function AdminDashboardClient({ posts: initialPosts }: AdminDashboardClie
       } else {
         alert(`Failed to restore backup: ${result.message}`)
       }
-    } catch (error) {
+    } catch {
       alert('Failed to read or restore backup file. Please ensure it is a valid JSON file.')
     } finally {
       setIsUploading(false)
