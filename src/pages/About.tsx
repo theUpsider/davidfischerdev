@@ -36,7 +36,7 @@ const About = () => {
           </p>
           <p>
             Since 2025, I have run Concrete Dynamics, a software company founded with Philipp Geirhos, and teach 3D
-            engine programming at the Games Academy.
+            engine programming at the Games Academy Berlin.
           </p>
           <div
             style={{
