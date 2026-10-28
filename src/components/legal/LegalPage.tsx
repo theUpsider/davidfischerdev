@@ -15,9 +15,14 @@ export const ScopeBanner = () => (
     style={{
       margin: '0 0 20px 0',
       padding: '15px',
-      border: '1px solid rgba(255, 255, 255, 0.25)',
+      // Colours are derived from the inherited text colour instead of hardcoded white,
+      // so the box stays visible on the light theme too. The plain rgba declarations
+      // come first and act as the fallback for browsers without `color-mix()`.
+      border: '1px solid rgba(128, 128, 128, 0.45)',
+      borderColor: 'color-mix(in srgb, currentColor 30%, transparent)',
       borderRadius: '4px',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)'
+      backgroundColor: 'rgba(128, 128, 128, 0.12)',
+      background: 'color-mix(in srgb, currentColor 6%, transparent)'
     }}>
     <p style={{ margin: 0 }}>
       <strong>Notice:</strong> This document applies exclusively to the Discord application{' '}
