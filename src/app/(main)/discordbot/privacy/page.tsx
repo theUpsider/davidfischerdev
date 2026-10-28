@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Privacy Policy | David Fischer',
     description: 'Privacy Policy for the Discord application "Augustus"',
-    url: 'https://davidfischer.dev/privacy',
+    url: 'https://davidfischer.dev/discordbot/privacy',
     siteName: 'David Fischer',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     creator: '@theUpsider'
   },
   alternates: {
-    canonical: 'https://davidfischer.dev/privacy'
+    canonical: 'https://davidfischer.dev/discordbot/privacy'
   },
   robots: {
     index: true,

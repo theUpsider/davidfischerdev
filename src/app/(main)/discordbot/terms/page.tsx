@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Terms of Service | David Fischer',
     description: 'Terms of Service for the Discord application "Augustus"',
-    url: 'https://davidfischer.dev/terms',
+    url: 'https://davidfischer.dev/discordbot/terms',
     siteName: 'David Fischer',
     images: [
       {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     creator: '@theUpsider'
   },
   alternates: {
-    canonical: 'https://davidfischer.dev/terms'
+    canonical: 'https://davidfischer.dev/discordbot/terms'
   },
   robots: {
     index: true,
