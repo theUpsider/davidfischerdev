@@ -46,7 +46,11 @@ export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({
 
       {/* Upper content area */}
       <div
-        style={{ height: renderChildrenInline ? 'auto' : barPosition, transition: 'all 0.5s ease' }}>
+        style={{
+          height: renderChildrenInline ? 'auto' : barPosition,
+          transition: 'all 0.5s ease',
+          ...(renderChildrenInline ? {} : { overflow: 'auto', display: 'flex', flexDirection: 'column' })
+        }}>
         <div style={{ flex: 1, overflow: 'auto' }}>
           {/* Server-rendered content for inline pages, otherwise the content published
               through the split-content context (nothing if it was not set). */}
@@ -55,19 +59,22 @@ export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({
         </div>
       </div>
 
-      {/* The horizontal line positioned absolutely */}
-      <div
-        style={{
-          position: 'absolute',
-          top: barPosition,
-          left: 0,
-          right: 0,
-          height: '1px',
-          backgroundColor: theme.palette.text.primary,
-          zIndex: 10,
-          transition: 'top 0.5s ease'
-        }}
-      />
+      {/* The horizontal line positioned absolutely. Not rendered for inline pages: the
+          legal documents fill the upper area, so the line would cross their body text. */}
+      {!renderChildrenInline && (
+        <div
+          style={{
+            position: 'absolute',
+            top: barPosition,
+            left: 0,
+            right: 0,
+            height: '1px',
+            backgroundColor: theme.palette.text.primary,
+            zIndex: 10,
+            transition: 'top 0.5s ease'
+          }}
+        />
+      )}
 
       {/* Lower content area */}
       <div
