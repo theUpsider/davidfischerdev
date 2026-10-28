@@ -12,7 +12,7 @@ const initialTheme = lightTheme
 
 const mainPadding = 'max(3%, 30px)'
 
-const AppContent = ({ children }: { children: React.ReactNode }) => {
+const AppContent = ({ children, renderChildrenInline }: { children: React.ReactNode; renderChildrenInline: boolean }) => {
   const { theme, setTheme } = useTheme()
   const [barPosition, setBarPosition] = React.useState(0)
   const matches = useMediaQueryCustom()
@@ -133,7 +133,7 @@ const AppContent = ({ children }: { children: React.ReactNode }) => {
             }}
           />
         </div>
-        <SplitContentRenderer barPosition={barPosition} matches={matches}>
+        <SplitContentRenderer barPosition={barPosition} matches={matches} renderChildrenInline={renderChildrenInline}>
           {children}
         </SplitContentRenderer>
       </div>
@@ -141,11 +141,22 @@ const AppContent = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export const AppShell = ({ children }: { children: React.ReactNode }) => {
+/**
+ * `renderChildrenInline` renders the children straight into the visible content area
+ * instead of the split-content pipeline. Use it only for server-rendered pages that do
+ * not publish content through `useSplitContentDispatch` (e.g. the legal documents).
+ */
+export const AppShell = ({
+  children,
+  renderChildrenInline = false
+}: {
+  children: React.ReactNode
+  renderChildrenInline?: boolean
+}) => {
   return (
     <ThemeProvider initialTheme={initialTheme}>
       <SplitContentProvider>
-        <AppContent>{children}</AppContent>
+        <AppContent renderChildrenInline={renderChildrenInline}>{children}</AppContent>
       </SplitContentProvider>
     </ThemeProvider>
   )
