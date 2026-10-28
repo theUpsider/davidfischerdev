@@ -86,7 +86,7 @@ const Imprint = () => {
           <h2>Changes to This Policy</h2>
           <p>
             We reserve the right to make changes to this Privacy Policy at any time. Such changes will be posted on this
-            page and are effective immediately. This policy was last updated on [Insert Date].
+            page and are effective immediately. This policy was last updated on 28 October 2026.
           </p>
           <p>By using this website, you acknowledge that you have read and understand this Privacy Policy.</p>
         </section>
