@@ -8,9 +8,22 @@ type SplitContentRendererProps = {
   barPosition: number
   matches: boolean
   children?: React.ReactNode
+  /**
+   * Render `children` into the visible upper area instead of the hidden mount slot.
+   *
+   * Only for fully server-rendered content without a split-content provider (e.g. the
+   * legal documents): those pages must appear in the initial HTML, not be injected
+   * client-side. Leave it unset for the interactive split-content pages.
+   */
+  renderChildrenInline?: boolean
 }
 
-export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({ barPosition, matches, children }) => {
+export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({
+  barPosition,
+  matches,
+  children,
+  renderChildrenInline = false
+}) => {
   const { theme } = useTheme()
   const splitContent = useSplitContentState()
 
@@ -26,41 +39,42 @@ export const SplitContentRenderer: React.FC<SplitContentRendererProps> = ({ barP
         overflow: 'auto',
         position: 'relative'
       }}>
-      {/* This div keeps the page components (Home, About, etc.) mounted but is not visible.
-          This is the key to fixing the infinite loop. */}
-      <div style={{ display: 'none' }}>
-        {children}
-      </div>
+      {/* Hidden mount slot: keeps the interactive split-content pages (Home, About, etc.)
+          mounted without showing their placeholder output. Skipped for inline pages, whose
+          children are rendered in the visible area below. */}
+      {!renderChildrenInline && <div style={{ display: 'none' }}>{children}</div>}
 
       {/* Upper content area */}
       <div
         style={{
-          height: barPosition,
+          height: renderChildrenInline ? 'auto' : barPosition,
           transition: 'all 0.5s ease',
-          overflow: 'auto',
-          display: 'flex',
-          flexDirection: 'column'
+          ...(renderChildrenInline ? {} : { overflow: 'auto', display: 'flex', flexDirection: 'column' })
         }}>
         <div style={{ flex: 1, overflow: 'auto' }}>
-          {/* Render the upper content from context, or nothing if it's not set. 
-              We no longer use Outlet as a fallback here. */}
+          {/* Server-rendered content for inline pages, otherwise the content published
+              through the split-content context (nothing if it was not set). */}
+          {renderChildrenInline && <div style={{ paddingTop: 20 }}>{children}</div>}
           {splitContent.upperContent}
         </div>
       </div>
 
-      {/* The horizontal line positioned absolutely */}
-      <div
-        style={{
-          position: 'absolute',
-          top: barPosition,
-          left: 0,
-          right: 0,
-          height: '1px',
-          backgroundColor: theme.palette.text.primary,
-          zIndex: 10,
-          transition: 'top 0.5s ease'
-        }}
-      />
+      {/* The horizontal line positioned absolutely. Not rendered for inline pages: the
+          legal documents fill the upper area, so the line would cross their body text. */}
+      {!renderChildrenInline && (
+        <div
+          style={{
+            position: 'absolute',
+            top: barPosition,
+            left: 0,
+            right: 0,
+            height: '1px',
+            backgroundColor: theme.palette.text.primary,
+            zIndex: 10,
+            transition: 'top 0.5s ease'
+          }}
+        />
+      )}
 
       {/* Lower content area */}
       <div
