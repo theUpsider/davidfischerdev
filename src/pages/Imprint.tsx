@@ -53,8 +53,8 @@ const Imprint = () => {
           <h3>Data Collection and Use:</h3>
           <p>
             The website itself has no contact forms, no user accounts, no newsletter, no analytics and no advertising.
-            It does not build user profiles and does not track you across pages or across websites. Fonts and images are
-            served by this website itself; your browser does not load them from an external font or image network.
+            It does not build user profiles and does not track you across pages or across websites. The website serves
+            its fonts and its page images from its own server rather than from an external font or image network.
           </p>
           <p>
             Like any website, this one still needs technical data in order to be delivered: the server answering your
@@ -113,12 +113,10 @@ const Imprint = () => {
             outside the European Union; such transfers are based on the EU standard contractual clauses.
           </p>
           <p>
-            Access to the applications is additionally restricted at the edge to requests coming from German IP
-            addresses; requests from other countries are rejected before they reach an application. My own network is
-            exempt from this restriction. To apply this rule, the connecting IP address and the country derived from it
-            are evaluated at the edge. Cloudflare may also record technical diagnostic data about failed requests
-            (network error reporting) and may set security cookies whose purpose is to distinguish automated traffic
-            from real visitors.
+            At its edge Cloudflare applies security rules that protect the service. These rules evaluate technical
+            request data such as the connecting IP address. Cloudflare may also record technical diagnostic data about
+            failed requests (network error reporting) and may set security cookies whose purpose is to distinguish
+            automated traffic from real visitors.
           </p>
           <p>
             The website itself is served from a rented server of a hosting provider inside the European Union; the
