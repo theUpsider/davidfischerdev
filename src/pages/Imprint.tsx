@@ -113,10 +113,12 @@ const Imprint = () => {
             outside the European Union; such transfers are based on the EU standard contractual clauses.
           </p>
           <p>
-            At its edge Cloudflare applies security rules that protect the service. These rules evaluate technical
-            request data such as the connecting IP address. Cloudflare may also record technical diagnostic data about
-            failed requests (network error reporting) and may set security cookies whose purpose is to distinguish
-            automated traffic from real visitors.
+            At its edge Cloudflare applies security rules that protect the service. Access to the applications under
+            the subdomains is restricted at the edge to visitors from Germany; requests from other countries are
+            blocked there. Requests are additionally rate-limited to protect against automated attacks. These rules
+            evaluate technical request data such as the connecting IP address. Cloudflare may also record technical
+            diagnostic data about failed requests (network error reporting) and may set security cookies whose
+            purpose is to distinguish automated traffic from real visitors.
           </p>
           <p>
             The website itself is served from a rented server of a hosting provider inside the European Union; the
@@ -184,7 +186,7 @@ const Imprint = () => {
           <h2>Changes to This Policy</h2>
           <p>
             I reserve the right to make changes to this Privacy Policy at any time. Such changes will be posted on this
-            page and are effective immediately. This policy was last updated on 4 November 2026.
+            page and are effective immediately. This policy was last updated on 5 November 2026.
           </p>
           <p>By using this website, you acknowledge that you have read and understand this Privacy Policy.</p>
         </section>
@@ -224,8 +226,8 @@ const Imprint = () => {
               access credentials.
             </li>
             <li>
-              <strong>Delivery and security:</strong> Cloudflare (DNS, encrypted delivery, edge security) as a
-              processor; hosting inside the EU.
+              <strong>Delivery and security:</strong> Cloudflare (DNS, encrypted delivery, edge security,
+              country restriction to Germany) as a processor; hosting inside the EU.
             </li>
             <li>
               <strong>Data sharing:</strong> no sale of data, no transfer for third-party purposes.
